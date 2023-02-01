@@ -1,0 +1,22 @@
+import java.util.Arrays;
+import java.util.List;
+
+// Are the twins even?
+
+public class TestTest {
+	
+	public static void main(String[] args) {
+		List<Integer> distEven = Arrays.asList();
+		int[] arr = {5,6,7,8,9};
+		for (int i=0; i<arr.length;i++) {
+			for (int j=0; j<arr.length;j++) {
+				int sum = arr[i]+arr[j];
+				if (sum%2==0) {
+					distEven.get(sum);
+				}
+					
+			}
+		} System.out.println(distEven);
+	}
+}
+	

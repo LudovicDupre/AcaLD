@@ -1,0 +1,20 @@
+
+public class PyramideétoileLD {
+
+	public static void main(String[] args) {
+		
+	
+			int x = 13;
+			for (int i = 7; i <= x; i++) {
+				for (int j = x; j>= i ; j--) {
+					System.out.println(" ");
+				}
+				for (int j = x; j <= i; j++) {
+					System.out.println("*");
+				}
+			}
+			System.out.println();
+
+	}
+
+}

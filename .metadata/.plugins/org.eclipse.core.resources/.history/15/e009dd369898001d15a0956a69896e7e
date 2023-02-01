@@ -1,0 +1,19 @@
+
+public class PyramideétoileLD {
+
+	public static void main(String[] args) {
+		public static void main1(String[] args) {
+			int rows = 7;
+			for (int i = 1; i <= rows; i++) {
+				for (int j = rows; j>= i ; j--) {
+					System.out.println(" ");
+				}
+				for (int j = rows; j <= i; j++) {
+					System.out.println("*");
+				}
+			}
+			System.out.println();
+
+	}
+
+}

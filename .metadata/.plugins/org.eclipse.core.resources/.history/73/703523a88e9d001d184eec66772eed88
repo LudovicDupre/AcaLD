@@ -1,0 +1,89 @@
+public class MatrixLD6 {
+
+	public static void main(String[] args) {
+		// Initialization des matrices.
+		int[][] firstMatrix = {{5,2,0},
+				{0,1,1},
+				{6,3,1}};
+		int[][] secondMatrix = {{1,1,3},
+				{2,5,6},
+				{3,0,5}};
+		int[][] thirdMatrix = {{8,7},
+				{5,4},
+				{2,1}};
+		int[][] fourthMatrix = {{0,2},
+				{1,2},
+				{1,1}};
+		
+		addMatrix(firstMatrix,secondMatrix);
+		System.out.println("--------------------");
+		addMatrix(firstMatrix,thirdMatrix);
+		System.out.println("--------------------");
+		subMatrix(thirdMatrix,fourthMatrix);
+		System.out.println("--------------------");
+		mulScalMatrix(firstMatrix,2);
+	}
+	// Fonction de mise en page addition
+	public static void addMatrix(int[][] mat1, int[][] mat2) {
+		if (mat1[0].length != mat2[0].length || mat1.length != mat2.length) {
+			System.out.println("Pour les additionner, les matrices doivent avoir le même nombre de col/ligne.");
+		} else {
+			System.out.println("Addition de matrice");
+			printMatrix(mat1);
+			System.out.println("+");
+			printMatrix(mat2);
+			System.out.println("=");
+			calculatingMatrix(mat1,mat2,"+",1);
+		}
+	}
+	// Fonction de mise en page soustraction
+	public static void subMatrix(int[][] mat1, int[][] mat2) {
+		if (mat1[0].length != mat2[0].length || mat1.length != mat2.length) {
+			System.out.println("Pour les soustraire, les matrices doivent avoir le même nombre de col/ligne.");
+		} else {
+			System.out.println("Soustraction de matrice");
+			printMatrix(mat1);
+			System.out.println("-");
+			printMatrix(mat2);
+			System.out.println("=");
+			calculatingMatrix(mat1,mat2,"-",1);
+		}
+	}
+	//Fonction mise en page scalaire
+	public static void mulScalMatrix(int[][] mat1, int s) {
+		System.out.println("Multiplication de matrice");
+		System.out.println(s + "*");
+		printMatrix(mat1);
+		System.out.println("=");
+		int[][] empt = {{0}};
+		calculatingMatrix(mat1,empt,"*",s);
+	} 
+	// Fonction d'impression de matrice	
+	public static void printMatrix(int[][] mat) {
+		for (int i=0; i<mat.length; i++) {
+			for (int j=0; j<mat[0].length; j++) {
+				System.out.print(mat[i][j]+" ");
+			}System.out.println();
+		}
+	} // Fonction de calcul des matrices (addition, soustraction et scalaire)
+	public static void calculatingMatrix(int[][] mat1, int[][] mat2, String op, int s){
+		if (op=="*") {
+			int[][] answer = new int[mat1.length][mat1[0].length];
+			for (int row = 0; row<mat1.length; row++) {
+				for (int column = 0; column<mat1[0].length; column++)
+					answer[row][column] = mat1[row][column]*s;
+			}printMatrix(answer);
+		} else {
+			int[][] answer = new int[mat1.length][mat2[0].length];
+			for (int row = 0; row<mat1.length; row++) {
+				for (int column = 0; column <mat2[0].length; column++) {
+					if (op == "+") {
+						answer[row][column] = mat1[row][column] + mat2[row][column];
+					}else{
+						answer[row][column] = mat1[row][column] - mat2[row][column];
+					}
+				}
+			}printMatrix(answer);
+		}
+	}
+}

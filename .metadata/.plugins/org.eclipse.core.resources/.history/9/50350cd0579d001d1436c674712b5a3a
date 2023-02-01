@@ -1,0 +1,21 @@
+
+public class playDigit {
+
+	
+		// Is there an integer k such as : (a^p+b^(p+1)+...)= n*k
+		public static void digPow(int n, int p) {
+	    // Conversion of int n in an array
+		  String temp = Integer.toString(n);
+	    int[] newArray = new int[temp.length()];
+	    for (int i=0; i<temp.length(); i++) {
+	    	 newArray[i] = temp.charAt(i) -'0';
+	    }
+	    long result1 = 0;
+	    for (int i =0; i<newArray.length; i++) {
+	    	 result1 += (newArray[i]^(p+i));
+	    }
+	   long k =result1/n;
+	 System.out.println(k);
+	    
+		}	
+	}

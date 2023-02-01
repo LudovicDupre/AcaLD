@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Fibo {
+
+	public static void main(String[] args) {
+		System.out.println("Please enter an integer : ");
+		Scanner sc = new Scanner(System.in);
+		while (!(sc.hasNextInt())) sc.next();
+		int input = sc.nextInt();
+		System.out.println("The nth number of the Fibonnacci sequence is "+ fiboFunction(input));
+
+	}
+	public static int fiboFunction(int a) {
+		if (a==0) {
+			return 0;
+		}
+		else if (a==1) {
+			return 1;
+		}
+		if (a>1) return fiboFunction(a-1)+ fiboFunction(a-2);
+		return a;
+	}
+
+}

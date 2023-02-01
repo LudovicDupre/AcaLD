@@ -1,0 +1,16 @@
+import java.util.Scanner;
+
+public class RécursivitéLD {
+
+	public static void main(String[] args) {
+		int i, fact = 1;
+		Scanner sc = new Scanner(System.in);
+		int number = sc.nextInt();
+		sc.close();
+		for ( i=1; i <= number; i++) {
+			fact=fact*i;
+		}
+		System.out.println(fact);
+	}
+
+}

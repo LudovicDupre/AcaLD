@@ -1,0 +1,39 @@
+
+public class Brouillon {
+	
+	
+		public static void main(String[] args) {
+			// Initialization des matrices.
+			int[][] firstMatrix = {{1,2,0},
+					{4,3,-1}};
+
+			int[][] secondMatrix = {{5,2,3},
+					{1,3,4}};
+			
+		}
+	public static int[][] mult( int [][] mat1, int s ) {
+		int[][] answer = new int[mat1.length][mat1[0].length];
+		for (int row = 0; row<mat1.length; row++) {
+			for (int column = 0; column<mat1[0].length; column++)
+				answer[row][column] = mat1[row][column]*s;
+		}
+		return answer;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void printMatrix(int[][] mat) {
+		for (int i=0; i<mat.length; i++) {
+			for (int j=0; j<mat[0].length; j++) {
+				System.out.print(mat[i][j]+" ");
+			}System.out.println();
+		}
+	}
+}

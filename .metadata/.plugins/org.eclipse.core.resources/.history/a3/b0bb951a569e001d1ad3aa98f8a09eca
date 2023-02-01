@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Brouillon {
+	
+	public static void main(String[] args) {
+		   Scanner sc = new Scanner(System.in);
+		   System.out.println("Entrez le code :");
+		      int input = sc.nextInt();
+		      testCode(input);
+		      System.out.println("Encore une fois :");
+		      int input2 = sc.nextInt();
+		      testCode(input2);
+		      System.out.println("Bravo.");
+		      sc.close();
+		   }
+		   public static void testCode(int x) {
+		   Scanner sc = new Scanner(System.in);
+		   int y;
+		    while (!(x==4242 || y==4242)) {
+		    System.out.println("Entrez le code :");
+		     y =sc.nextInt();
+		    } sc.close();
+		  }
+}

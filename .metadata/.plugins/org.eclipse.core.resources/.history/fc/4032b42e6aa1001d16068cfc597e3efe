@@ -1,0 +1,15 @@
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Brouillon_PLM {
+
+	public static void main(String[] args) {
+		HashMap<String, String> map = new HashMap<>();
+		for(Map.Entry<String, List<String>> entry : map.entrySet()) {
+			String key = entry.getKey();
+			List<String> value = entry.getValue();
+
+	}
+	}
+}

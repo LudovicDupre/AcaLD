@@ -1,0 +1,51 @@
+import java.util.Arrays;
+
+public class BaseEx6OperationLD {
+	
+	//6.1
+	public static void main(String[] args) {
+		System.out.println(Add(5,2));
+		System.out.println(Sub(5,2));
+		System.out.println(Mul(5,2));
+		System.out.println(Div(5,2));
+	}
+	public static int Add(int i, int j) {
+		return (i+j);
+	}
+	public static int Sub(int i, int j) {
+		return (i-j);
+	}
+	public static int Mul(int i, int j) {
+		return (i*j);
+	}
+	public static int Div(int i, int j) {
+		return (i/j);}
+	
+	//6.2
+	public static void main1(String[] args) {
+		int rows = 7;
+		for (int i = 1; i <= rows; i++) {
+			for (int j = rows; j>= i ; j--) {
+				System.out.println(" ");
+			}
+			for (int j = rows; j <= i; j++) {
+				System.out.println("*");
+			}
+		}
+		System.out.println();
+	}
+
+	//6.3
+	public static int getBigTwo(String[] args) {
+		int[] example = {78, 6, -250, 2, 12, 9};
+		int X = example.length;
+		Arrays.sort(example);
+		return (example[X-1] + example[X-2]);
+	}
+}
+
+
+
+
+
+

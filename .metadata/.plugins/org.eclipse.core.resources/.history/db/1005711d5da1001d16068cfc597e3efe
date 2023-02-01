@@ -1,0 +1,18 @@
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+
+public class First_Page {
+	
+	static Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) {
+		
+		HashMap<String, List<String>> planeDB = new HashMap<>();
+		List<String> L6I8 = new List<>("A350","Assy","transport");
+		List<String> K5L9 = new List<>("A350","concept","fret");
+		List<String> plane843 = new List<>
+	}
+
+}
