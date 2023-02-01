@@ -1,18 +1,14 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Map.Entry;
+import java.util.Scanner;
 
-public class Brouillon_PLM {
+public class PLM_project {
 	
 	static Scanner sc = new Scanner(System.in);
-	
-
 	
 	public static void main(String[] args) {
 		
