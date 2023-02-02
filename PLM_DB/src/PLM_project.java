@@ -5,14 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
-
+/**@author DupreL
+ */
 public class PLM_project {
-	
+
 	static Scanner sc = new Scanner(System.in);
-	
+	/** Application to articulate two DB, giving the user the ability to alter one of them
+	 * @param args Just lines of codes
+	 */
 	public static void main(String[] args) {
 		
-		//Initialization of the DB/HashMap- for the planes since we can't use objects
 		HashMap<String, ArrayList<String>> planeDB = new HashMap<>();
 		ArrayList<String> listL6I8 = new ArrayList<>(Arrays.asList("A350","assy","passager"));
 		ArrayList<String> listK5L9 = new ArrayList<>(Arrays.asList("A400M","concept","fret"));
@@ -45,11 +47,11 @@ public class PLM_project {
 		partDB.put("part005", list005);
 		partDB.put("part006", list006);
 		
-		//User input + choice with switch case
-		System.out.println("Bienvenue dans l'application de gestion du cycle de vie d'avions AIRBUS.\nFaites votre choix dans le menu, saisissez le chiffre correspondant:");
+		//User input + choice with switch case	
+		System.out.println("Menu Principal :\nBienvenue dans l'application de gestion du cycle de vie d'avions AIRBUS.\nFaites votre choix dans le menu, saisissez le chiffre correspondant:");
 		System.out.println("1:Afficher tous les avions\n2:Afficher tous les avions contenant un mot clé dans le programme\n3:Ajouter ou supprimer une pièce pour un avion donné\n4:Afficher un avion avec les infos détaillées de chaque pièces\n5:Quitter l'application");
 		
-		int choice = -1 ;
+		int choice = -1;
 		while (choice!=5) {
 			choice = sc.nextInt();
 			switch(choice) {
@@ -75,62 +77,81 @@ public class PLM_project {
 			System.out.println(bomPrint(planeDB.get(idPlane)));
 			break;
 			} 
+			System.out.println("Retour au menu principal...");
 		}
-	}//Return all the DB/Plane list
+	}
+	/**iteration on the plane map
+	 * @param map the plane DB with the plane ID followed by the plane info list
+	 * @return a string for ease of print
+	 */
 	public static String iteMap(HashMap<String, ArrayList<String>> map) {
 
-		String listPlane ="";
+		String listPlane ="List of plane ID :\n";
 		for(Entry<String, ArrayList<String>> entry : map.entrySet()) {
 			String key = entry.getKey();
 			List<String> value = entry.getValue();
-			listPlane +=  (key+"\n"+value) +"\n";
+			listPlane +=  "Plane "+key+" "+value+"\n";
 		}
 		return listPlane;
-	}//Return matching plane from matching keyword
+	}
+	/**Matching keyword to an AC program
+	 * @param map planeDB to iterate over a search
+	 * @param input keyword to search
+	 * @return a string of all the plane containing the keyword plus their list of info
+	 */
 	public static String keyWord(HashMap<String, ArrayList<String>> map, String input) {
 
-		String listKey = "";
+		String listKey = "Plane with "+input+" keyword :\n";
 		for (Map.Entry<String, ArrayList<String>> entry : map.entrySet()) {
 
 			String key = entry.getKey();
 
 			ArrayList<String> value = entry.getValue();
 			String[] arr = value.toArray(new String[0]);
-			if (arr[0].contains(input)) { 
-				listKey += (key+" "+value)+"\n";	
+			if (arr[0].contains(input.toUpperCase())) { 
+				listKey += "Plane "+key+" "+value+"\n";	
 			}
 		}
 		return listKey;
-	}//add part in the plane list
+	}
+	/**Add a part to the list of a specified plane
+	 * @param map1 planeDB to iterate over
+	 * @param map2 partDB for the user to choose from
+	 * @return plane id and info plus the part added
+	 */
 	public static HashMap<String, ArrayList<String>> addPart(HashMap<String, ArrayList<String>> map1, HashMap<String, ArrayList<String>> map2) {
 		
-		System.out.println(iteMap(map1));
-		System.out.println("Please enter plane ID :");
+		System.out.println(iteMap(map1)+"\nPlease enter plane ID :");
 		String planeId = sc.next();
-		System.out.println(iteMap(map2));
-		System.out.println("Please enter a part to add to the plane :");
+		System.out.println(iteMap(map2)+"\nPlease enter a part to add to the plane :");
 		String partToAdd = sc.next();
-		ArrayList<String> listPart = map2.get(partToAdd);
-		String partName = listPart.get(0);
+		String partName = map2.get(partToAdd).get(0);
 		ArrayList<String> matchingList =  map1.get(planeId);
 		matchingList.add(partName);
 		map1.replace(planeId,matchingList);
 		
 		return map1;
-	}//remove part in the plane list
+	}
+	/**Remove a part from the plane BOM
+	 * @param map1 for the user to found the plane and the part to delete
+	 * @return the plane id and his list
+	 */
 public static HashMap<String, ArrayList<String>> delPart(HashMap<String, ArrayList<String>> map1) {
 		
-		System.out.println(iteMap(map1));
-		System.out.println("Please enter plane ID :");
+		System.out.println(iteMap(map1)+"\nPlease enter plane ID :");
 		String planeId = sc.next();
-		System.out.println("Please enter part number you wish to remove :");
+		System.out.println("Please enter the name of the part you wish to remove :");
 		String partToDel = sc.next();
 		ArrayList<String> matchingList =  map1.get(planeId);
 		matchingList.remove(partToDel);
 		map1.replace(planeId,matchingList);
 
 		return map1;
-}// creating shallow copy  of plane list without first 3 index : get the BOM
+}
+	/**Create a shallow copy of the plane list without the first 3 index, which are inrelevent to the BOM
+	 * @param arr1 take the plane list previously choosen by the user
+	 * @return the list without the non-BOM related info within the list
+	 */
 public static ArrayList<String> bomPrint(ArrayList<String> arr1) {
 
 	ArrayList<String> bom = new ArrayList<>(Arrays.asList(""));
