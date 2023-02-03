@@ -11,7 +11,7 @@ public class PLM_project {
 
 	static Scanner sc = new Scanner(System.in);
 	/** Application to articulate two DB, giving the user the ability to alter one of them
-	 * @param args Just lines of codes
+	 * @param args
 	 */
 	public static void main(String[] args) {
 
