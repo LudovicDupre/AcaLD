@@ -12,7 +12,7 @@ public class Plm_project_2 {
 	static Scanner sc = new Scanner(System.in);
 	/** Application to articulate two DB, giving the user the ability to alter one of them
 	 * We are using ArrayList instead of HashMap here
-	 * @param args 
+	 * @param args app to check and alter a db
 	 */
 	public static void main(String[] args) {
 		//initialization of the arraylists
