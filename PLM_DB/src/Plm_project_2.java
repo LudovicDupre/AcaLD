@@ -2,10 +2,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
-
+/**
+ * @author DupreL
+ */
 public class Plm_project_2 {
 
 	static Scanner sc = new Scanner(System.in);
@@ -44,8 +45,8 @@ public class Plm_project_2 {
 		ArrayList<String> bomC6R4 = new ArrayList<>(Arrays.asList("screw","belt"));
 
 		ArrayList<ArrayList<String> > bomDB = new ArrayList<>(Arrays.asList(bomL6I8,bomK5L9,bomH7O3,bomE6H2,bomP6M3,bomT8B6,bomC6R4));
-		//Below the finished planeDB
-		ArrayList<ArrayList<ArrayList<String>>> planeDB = new ArrayList<>(Arrays.asList(idDB,infoDB,bomDB));
+
+		//ArrayList<ArrayList<ArrayList<String>>> planeDB = new ArrayList<>(Arrays.asList(idDB,infoDB,bomDB));
 
 		//Initialization of the DB for the parts
 		HashMap<String, ArrayList<String>> partDB = new HashMap<>();
@@ -70,6 +71,8 @@ public class Plm_project_2 {
 		int choice = -1;
 		while (choice!=5) {
 			choice = sc.nextInt();
+			while (choice>5 || choice<0) {choice =sc.nextInt();} 
+			
 			switch(choice) {
 			case 1 : System.out.println(itePlane(idDB,infoDB)+"\n\nBack to main menu...");
 			break;
@@ -138,7 +141,7 @@ public class Plm_project_2 {
 		}
 		return listID;
 	}
-	/**Matching keyword to an AC program/index 0 in the list of the plane hashmap
+	/**Matching keyword to an AC program/index 0 in the list of every list of the plane 
 	 * @param arr1  to iterate over a search
 	 * @param arr2 keyword to search
 	 * @param input keyword to look for
@@ -146,7 +149,7 @@ public class Plm_project_2 {
 	 */
 	public static String keyWord(ArrayList<ArrayList<String>> arr1,ArrayList<ArrayList<String>> arr2, String input) {
 
-		String listKey = "Plane with "+input+" keyword :\n";
+		String listKey = "Plane featuring keyword in AC program :\n";
 
 		for (int i =0;i<arr1.size();i++) {
 			ArrayList<String> id = arr1.get(i);
@@ -154,8 +157,10 @@ public class Plm_project_2 {
 			String[] check = value.toArray(new String[0]);
 			if (check[0].contains(input)) { 
 				listKey += "\nPlane ID: "+id+"; Info on the plane: "+value;
-			} else { listKey = "Plane with "+input+" keyword :\n No Matches found";
-			}
+			} 	
+		}
+		if (listKey == "Plane featuring keyword in AC program :\n") {
+			listKey ="No matches found!";
 		}
 		return listKey;
 	}
@@ -195,11 +200,11 @@ public class Plm_project_2 {
 		ArrayList<String> matchingList =  arr2.get(index);
 		matchingList.remove(partToDel);
 		arr2.set(index,matchingList);
-		System.out.println("Plane "+planeId+": "+bomPrint(index,arr2));
+		System.out.println("Plane "+planeId+": List of components :"+bomPrint(index,arr2));
 
 		return arr2;
 	}
-	/**Create a shallow copy of the plane list without the first 3 index, which are inrelevent to the BOM
+	/**Create a string of the plane list at the matching index
 	 * @param arr1 take the plane list previously choosen by the user
 	 * @param x : index matching the id selected by the user
 	 * @return bom demanded

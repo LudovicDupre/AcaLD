@@ -54,6 +54,7 @@ public class PLM_project {
 		int choice = -1;
 		while (choice!=5) {
 			choice = sc.nextInt();
+			while (choice>5 || choice<0) {choice =sc.nextInt();} 
 			switch(choice) {
 			case 1 : System.out.println(iteMapPlane(planeDB)+"\n\nBack to main menu...");
 			break;
@@ -76,7 +77,7 @@ public class PLM_project {
 			case 4 : System.out.println("Please enter the plane ID you want the BOM of :");
 			System.out.println(printList(planeDB));
 			String idPlane = sc.next();
-			System.out.println(idPlane+"; "+bomPrint(planeDB.get(idPlane))+"\nBack to main menu...");
+			System.out.println("Plane ID :"+idPlane+";\nBill of Material:"+bomPrint(planeDB.get(idPlane))+"\n\nBack to main menu...");
 			break;
 			} 
 		}
@@ -132,8 +133,8 @@ public class PLM_project {
 	 * @return a string of all the plane containing the keyword plus their list of info
 	 */
 	public static String keyWord(HashMap<String, ArrayList<String>> map, String input) {
-
-		String listKey = "Plane with "+input+" keyword :\n";
+		
+		String listKey = "Plane featuring keyword in AC program :\n";
 		for (Map.Entry<String, ArrayList<String>> entry : map.entrySet()) {
 
 			String key = entry.getKey();
@@ -144,7 +145,10 @@ public class PLM_project {
 				for (int i =0; i<3; i++) {			
 					listKey +=" "+value.get(i)+" ";
 				}
-			} listKey = "Plane with "+input+" keyword :\n No Matches found";
+			}  
+		} 
+		if (listKey == "Plane featuring keyword in AC program :\n") {
+			listKey ="No matches found!";
 		}
 		return listKey;
 	}
