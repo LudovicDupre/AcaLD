@@ -16,15 +16,8 @@ public class Plm_project_2 {
 	 */
 	public static void main(String[] args) {
 		//initialization of the arraylists
-		ArrayList<String> idL6I8 = new ArrayList<>(Arrays.asList("L6I8"));
-		ArrayList<String> idK5L9 = new ArrayList<>(Arrays.asList("K5L9"));
-		ArrayList<String> idH7O3 = new ArrayList<>(Arrays.asList("H7O3"));
-		ArrayList<String> idE6H2 = new ArrayList<>(Arrays.asList("E6H2"));
-		ArrayList<String> idP6M3 = new ArrayList<>(Arrays.asList("P6M3"));
-		ArrayList<String> idT8B6 = new ArrayList<>(Arrays.asList("T8B6"));
-		ArrayList<String> idC6R4 = new ArrayList<>(Arrays.asList("C6R4"));
 
-		ArrayList<ArrayList<String>> idDB = new ArrayList<>(Arrays.asList(idL6I8,idK5L9,idH7O3,idE6H2,idP6M3,idT8B6,idC6R4));
+		ArrayList<String> idDB = new ArrayList<>(Arrays.asList("idL6I8","idK5L9","idH7O3","idE6H2","idP6M3","idT8B6","idC6R4"));
 
 		ArrayList<String> infoL6I8 = new ArrayList<>(Arrays.asList("A350","assy","passager"));
 		ArrayList<String> infoK5L9 = new ArrayList<>(Arrays.asList("A400M","concept","fret"));
@@ -45,8 +38,6 @@ public class Plm_project_2 {
 		ArrayList<String> bomC6R4 = new ArrayList<>(Arrays.asList("screw","belt"));
 
 		ArrayList<ArrayList<String> > bomDB = new ArrayList<>(Arrays.asList(bomL6I8,bomK5L9,bomH7O3,bomE6H2,bomP6M3,bomT8B6,bomC6R4));
-
-		//ArrayList<ArrayList<ArrayList<String>>> planeDB = new ArrayList<>(Arrays.asList(idDB,infoDB,bomDB));
 
 		//Initialization of the DB for the parts
 		HashMap<String, ArrayList<String>> partDB = new HashMap<>();
@@ -95,7 +86,7 @@ public class Plm_project_2 {
 			case 4 : System.out.println("Please enter the plane ID you want the BOM of :");
 			//System.out.println(printList(planeDB));
 			String idPlane = sc.next();
-			int index = idDB.indexOf((Arrays.asList(idPlane)));
+			int index = idDB.indexOf(idPlane);
 			System.out.println("Plane: "+idPlane+"; "+bomPrint(index,bomDB)+"\nBack to main menu...");
 			break;
 			} 
@@ -107,7 +98,7 @@ public class Plm_project_2 {
 	 * @param arr2 listInfo
 	 * @return a string for ease of print
 	 */
-	public static String itePlane(ArrayList<ArrayList<String>> arr1, ArrayList<ArrayList<String>> arr2) {
+	public static String itePlane(ArrayList<String> arr1, ArrayList<ArrayList<String>> arr2) {
 
 		String listPlane ="List of plane ID :\n";
 		for (int i =0; i<arr1.size(); i++) {
@@ -133,7 +124,7 @@ public class Plm_project_2 {
 	 * @param arr1 to iterate over
 	 * @return just the list of plane ID of the map 
 	 */
-	public static String printListID(ArrayList<ArrayList<String>> arr1) {
+	public static String printListID(ArrayList<String> arr1) {
 
 		String listID ="List of plane ID :\n";
 		for(int i =0;i<arr1.size(); i++) {
@@ -147,12 +138,12 @@ public class Plm_project_2 {
 	 * @param input keyword to look for
 	 * @return a string of all the plane containing the keyword plus their list of info
 	 */
-	public static String keyWord(ArrayList<ArrayList<String>> arr1,ArrayList<ArrayList<String>> arr2, String input) {
+	public static String keyWord(ArrayList<String> arr1,ArrayList<ArrayList<String>> arr2, String input) {
 
 		String listKey = "Plane featuring keyword in AC program :\n";
 
 		for (int i =0;i<arr1.size();i++) {
-			ArrayList<String> id = arr1.get(i);
+			String id = arr1.get(i);
 			ArrayList<String> value = arr2.get(i);
 			String[] check = value.toArray(new String[0]);
 			if (check[0].contains(input)) { 
@@ -170,11 +161,11 @@ public class Plm_project_2 {
 	 * @param map partDB for the user to choose from
 	 * @return the bom altered
 	 */
-	public static  ArrayList<ArrayList<String>> addPart(ArrayList<ArrayList<String>> arr1,ArrayList<ArrayList<String>> arr2, HashMap<String, ArrayList<String>> map) {
+	public static  ArrayList<ArrayList<String>> addPart(ArrayList<String> arr1,ArrayList<ArrayList<String>> arr2, HashMap<String, ArrayList<String>> map) {
 
 		System.out.println(printListID(arr1)+"\nPlease enter plane ID :");
 		String planeId = sc.next();
-		int index = arr1.indexOf((Arrays.asList(planeId)));
+		int index = arr1.indexOf(planeId);
 		System.out.println(iteMapPart(map)+"\nPlease enter a part to add to the plane :");
 		String partToAdd = sc.next();
 		String partName = map.get(partToAdd).get(0);
@@ -183,18 +174,18 @@ public class Plm_project_2 {
 		arr2.set(index,matchingList);
 		System.out.println("Plane "+planeId+": "+bomPrint(index,arr2));
 
-		return arr1;
+		return arr2;
 	}
 	/**Remove a part from the plane BOM
 	 * @param arr1 for the user to found the plane and the part to delete
 	 * @param arr2 bom to manipulate
 	 * @return the bom altered
 	 */
-	public static ArrayList<ArrayList<String>> delPart(ArrayList<ArrayList<String>> arr1, ArrayList<ArrayList<String>> arr2) {
+	public static ArrayList<ArrayList<String>> delPart(ArrayList<String> arr1, ArrayList<ArrayList<String>> arr2) {
 
 		System.out.println(printListID(arr1)+"\nPlease enter plane ID :");
 		String planeId = sc.next();
-		int index = arr1.indexOf((Arrays.asList(planeId)));
+		int index = arr1.indexOf(planeId);
 		System.out.println("Please enter the name of the part you wish to remove :\nPlane "+planeId+": "+bomPrint(index,arr2));
 		String partToDel = sc.next();
 		ArrayList<String> matchingList =  arr2.get(index);
