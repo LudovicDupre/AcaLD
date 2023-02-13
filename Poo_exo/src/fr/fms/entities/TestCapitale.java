@@ -7,8 +7,8 @@ public class TestCapitale {
 		Capital paris =new Capital("Paris", "France", 2000000, "Tour Eiffel");
 		Capital london = new Capital("Londres", "GB", 9400000,"BigBen");
 		
-//		System.out.println(paris);
-//		System.out.println(london);
+		System.out.println(paris);
+		System.out.println(london);
 	}
 
 }

@@ -4,16 +4,27 @@ public class Employe extends Person {
 
 	int salary;
 	String company;
-	public City city = new City();
-	public Person person = new Person();
-	
-	public Employe(Person person, String company, int salary, City city) {
-		super(person,city);
+
+	public Employe(String firstName, String lastName, int age, String livingPlace, City city, int salary, String company) {
+		super(firstName, lastName, age, livingPlace, city);
 		this.salary = salary;
 		this.company = company;
 	}
-	public Employe(Employe employe) {
-		get
+	public Employe(String firstName, String lastName, int age, String livingPlace, City city, String company) {
+		super(firstName, lastName, age, livingPlace,city);
+		this.company = company;
+	}
+	public Employe (String firstName, String lastName, int age, String livingPlace, Capital capital, int salary, String company) {
+		super(firstName, lastName, age, livingPlace, capital);
+		this.salary = salary;
+		this.company = company;
+
+	}
+	public Employe (String firstName, String lastName, int age, String livingPlace, Capital capital, String company) {
+		super(firstName, lastName, age, livingPlace, capital);
+		this.company = company;
+	}
+	public Employe() {
 	}
 	@Override
 	public String toString() {

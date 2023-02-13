@@ -29,6 +29,7 @@ public class City {
 	public City(String town, String country) {
 		this.country = country;
 		this.town = town;
+		runCount++;
 	}
 	// Getters Setters
 	public String getCountry() {
@@ -61,7 +62,6 @@ public class City {
 	 * @param p
 	 */
 	public void print3(String t, int p) {
-		System.out.println("[Ville : "+getTown()+"] [pays : unkown] [nombre d'habitants : "+getPopulation()+" ]");
 		System.out.println("[Ville : "+getTown()+"] [pays : "+getCountry()+"] [nombre d'habitants : "+getPopulation()+" ]");
 	}
 	/** 1.4 method to print a specific message

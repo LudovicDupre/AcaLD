@@ -2,12 +2,11 @@ package fr.fms.entities;
 
 public class Person {
 	
-	String firstName;
-	String lastName;
-	int age;
-	String livingPlace;
-	public City city = new City();
-	
+	private String firstName;
+	private String lastName;
+	private int age;
+	private String livingPlace;
+	private City city;
 
 	public Person(String firstName, String lastName, int age, String livingPlace, City city) {
 		//1-8

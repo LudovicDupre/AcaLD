@@ -24,9 +24,20 @@ public class Person {
 		this.lastName = lastName;
 		this.age =age;
 	}
+	public String getLivingPlace() {
+		return livingPlace;
+	}
+	public City getCity() {
+		return city;
+	}
+	
+//	@Override
+//	public String toString() {
+//		return   "[lastname= "+lastName+ ", firstName= "+firstName+", age= "+age+", adress="+livingPlace+"]; BirthPlace:"
+//				+"[name= "+city.getTown()+", State= "+city.getCountry()+", population :"+city.getPopulation()+"]";
+//	}
 	@Override
 	public String toString() {
-		return   "[lastname= "+lastName+ ", firstName= "+firstName+", age= "+age+", adress="+livingPlace+"]; BirthPlace:"
-				+"[name= "+city.getTown()+", State= "+city.getCountry()+", population :"+city.getPopulation()+"]";
+		return lastName+" , "+ firstName+" , "+age+"ans , habitant "+livingPlace+" , Ville de Naissance : "+city.getTown()+" , "+city.getCountry();
 	}
 }

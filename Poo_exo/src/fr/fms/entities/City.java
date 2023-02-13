@@ -2,17 +2,15 @@ package fr.fms.entities;
 
 public class City {
 
-	public String country;
-	public String town;
-	public int population;
-	
-	public static int runCount;
-	
+	private String country;
+	private String town;
+	private int population;
+
+	// Constructors
 	public City(String town, String country, int population) {
 		this.country = country;
 		this.town = town;
 		this.population = population;
-		runCount++;
 	}
 	public City() {		
 	}
@@ -20,6 +18,7 @@ public class City {
 		this.country = country;
 		this.town = town;
 	}
+	//Getters Setters
 	public String getCountry() {
 		return country;
 	}
@@ -38,22 +37,7 @@ public class City {
 	public void setPopulation(int p) {
 		this.population = p;
 	}
-	//3
-//	public void print3(String t, int p) {
-//		System.out.println("[Ville : "+t+"] [pays : unkown] [nombre d'habitants : "+p+" ]");
-//		String country = getCountry();
-//		System.out.println("[Ville : "+t+"] [pays : "+country+"] [nombre d'habitants : "+p+" ]");
-//	}
-	//4
-	public String display() {
-		String result ="ville de "+getTown()+" en "+getCountry()+" ayant "+getPopulation()+" habitants";
-		return result;
-	}
 	public String toString() {
-		return "Ville de Naissance : "+town+" , "+country+" , "+population+" d'habitants";
-	}
-	//7
-	public static int getNumberRunCount() {
-		return runCount;
+		return town+" , "+country+" , "+population+" d'habitants";
 	}
 }
