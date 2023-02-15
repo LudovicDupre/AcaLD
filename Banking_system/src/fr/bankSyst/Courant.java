@@ -1,12 +1,19 @@
 package fr.bankSyst;
 
-public class Courant {
+public class Courant extends Client  implements Operation{
 	
 	private String courantId;
 	private double solde;
 	private int decouvert;
 	
+	//Constructeur
+	public Courant( String courantId, double solde, int decouvert) {
+		this.courantId = courantId;
+		this.solde = solde;
+		this.decouvert = decouvert;
+	}
 	
+	//setters getters
 	public String getCourantId() {
 		return courantId;
 	}
