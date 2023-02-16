@@ -4,6 +4,8 @@ public class Commercial extends Employe{
 
 	private int percent;
 	private int MIN_SALARY = 1000;
+	private int CA = 5000;
+	
 	public Commercial(String firstName, String lastName, int age, String livingPlace, City city, String company, int percent) {
 		super( firstName,  lastName,  age,  livingPlace,  city,  company);
 		this.percent = percent;
@@ -16,7 +18,7 @@ public class Commercial extends Employe{
 			this.percent =i;
 		}
 	}
-	public String toString() {
-		return super.toString() + "% CA"+ percent;
+	public int pay() {
+		return  CA*(percent/100);
 	}
 }

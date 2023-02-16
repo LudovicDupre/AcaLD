@@ -14,7 +14,7 @@ public class PLM_project {
 	 * @param args app to check and alter a db
 	 */
 	public static void main(String[] args) {
-
+		//Initialization of the DB for the planes
 		HashMap<String, ArrayList<String>> planeDB = new HashMap<>();
 		ArrayList<String> listL6I8 = new ArrayList<>(Arrays.asList("A350","assy","passager","belt"));
 		ArrayList<String> listK5L9 = new ArrayList<>(Arrays.asList("A400M","concept","fret","seat"));
@@ -47,15 +47,18 @@ public class PLM_project {
 		partDB.put("M978", list005);
 		partDB.put("A845", list006);
 
-		//User input + choice with switch case	
+		//Main Menu
 		System.out.println("Main Menu :\nWelcome in the Product Data Management of AIRBUS.\nTo make your choice in this menu, please enter a number:");
 		System.out.println("1:Print all planes.\n2:Print all AC program featuring a keyword.\n3:Add or delete a part in the BOM of a plane.\n4:Print the BOM of a selected plane.\n5:Quit the app.");
-
+		//user's choice
 		int choice = -1;
 		while (choice!=5) {
 			choice = sc.nextInt();
-			while (choice>5 || choice<0) {choice =sc.nextInt();} 
+			while (choice>5 || choice<0) {
+				choice =sc.nextInt();
+				} 
 			switch(choice) {
+			
 			case 1 : System.out.println(iteMapPlane(planeDB)+"\n\nBack to main menu...");
 			break;
 

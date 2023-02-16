@@ -18,7 +18,6 @@ public class Celeb {
 		for (Person celeb : listCeleb) {
 			System.out.println(celeb);
 		}
-
 		System.out.println("--------------------------------------\nListe après notre filtre :");
 
 		for (Person celeb : listCeleb) {

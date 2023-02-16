@@ -1,6 +1,6 @@
 package fr.fms.entities;
 
-public class Person {
+public abstract class Person {
 	
 	private String firstName;
 	private String lastName;
@@ -44,11 +44,12 @@ public class Person {
 	public int getAge() {
 		return age;
 	}
-	
+
 	
 	@Override
 	public String toString() {
 		return lastName+ ",  "+firstName+",  "+age+"ans, habitant "+livingPlace+", Ville de Naissance : "
 				+city.getTown()+", "+city.getCountry()+",  "+city.getPopulation()+" d'habitants";
 	}
+	public abstract int pay();
 }

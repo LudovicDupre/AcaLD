@@ -4,6 +4,7 @@ public class Employe extends Person {
 
 	int salary;
 	String company;
+	private double CHARGES = 0.20;
 
 	public Employe(String firstName, String lastName, int age, String livingPlace, City city, int salary, String company) {
 		super(firstName, lastName, age, livingPlace, city);
@@ -42,5 +43,9 @@ public class Employe extends Person {
 	}
 	public int getSalary() {
 		return salary;
+	}
+	@Override
+	public int pay() {
+		return (int) (salary - salary*CHARGES);
 	}
 }

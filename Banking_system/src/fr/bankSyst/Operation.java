@@ -1,34 +1,34 @@
 package fr.bankSyst;
 
 public interface Operation {
-	
-	/**virement qui prend l'id des deux comptes + le solde du debiteur
-	 * @param x ID compte débiteur
-	 * @param y ID compte créditeur
-	 * @param z  solde du débiteur
-	 * @return solde du débiteur après débit
+
+	/** withdrawal operation
+	 * @param idAccount to withdraw from
+	 * @param balance 
+	 * @param amount
+	 * @return
 	 */
-	static double virement(String x , String y, double z) {
-		
-		return z;
+	static double withdrawal(double balance, double amount, double overdraft) {	
+		if(balance-amount < overdraft) {
+			System.out.println("Operation Canceled : You cannot withdraw because your overdraft is reached.");
+			return balance;
+		}else {
+			return balance-amount;
+		}
 	}
-	/** retrait de y sur le compte x
-	 * @param x ID du compte
-	 * @param y- solde avec débit
-	 * @return solde après débit
-	 */
-	static double retrait(String x, double y) {
-		return y;
-	}
-	/**
+	/** deposit operation
 	 * @param x ID du compte
 	 * @param y solde avant ajout 
-	 * @return solde nouveau
+	 * @return balance after operation
 	 */
-	static double versement(String x, double y) {
-		return y;
+	static double deposit(double balance, double amount) {
+		return balance+amount;
 	}
-	static String soldeAffichage(double y) {
-		return "Solde de votre compte : "+ y;
+	/**
+	 * @param balance of the account
+	 * @return string to print 
+	 */
+	static String balance(double balance) {
+		return "Balance of your account : "+ balance;
 	}
 }
