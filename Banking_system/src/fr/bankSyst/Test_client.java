@@ -3,8 +3,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
-
+import java.util.Map.Entry;
+/**
+ * @author Les jeunes avec Macron
+ */
 public class Test_client {
 
 	static Scanner sc = new Scanner(System.in);
@@ -12,10 +16,10 @@ public class Test_client {
 
 	public static void main(String[] args)  {
 
-		HashMap<String, Savings> savingsDB =  intiSDB();
-		HashMap<String, Current> currentDB =  intiCDB();
-		ArrayList< Client> listClient   = initClient();
-
+		HashMap<String, Savings> savingsDB =  Data.intiSDB();
+		HashMap<String, Current> currentDB =  Data.intiCDB();
+		//ArrayList< Client> listClient   = Data.initClient();
+		HashMap<String, Transaction> transactionDB = Data.initTransaction();
 		System.out.println("Who are you?"); // replace connexion
 		String identity = sc.next();
 
@@ -38,44 +42,43 @@ public class Test_client {
 				switch(choice2) {
 
 				case 1: System.out.println("Please enter amount you wish to withdraw :");
-				int amountW = sc.nextInt();
-				double newBalance = Operation.withdrawal(accountS.getBalance(), amountW,0);
-				accountS.setBalance(newBalance);
-				System.out.println(accountS+"\n");
+				double amountW = sc.nextDouble();
+				withdrawalS(accountS,amountW);
+				//dateTransaction stored
 				System.out.println("Back to operation menu\n\n"+opMenu());
 				break;
 
-				case 2: System.out.println("Please enter amount you wish to deposit :");
-				int amountD = sc.nextInt();
-				double newBalance2 = Operation.deposit( accountS.getBalance(), amountD);
-				accountS.setBalance(newBalance2);
-				System.out.println(accountS+"\n");
-				System.out.println("Back to operation menu\n\n"+opMenu()); 
+				case 2:		System.out.println("Please enter amount you wish to deposit :");
+				double amountD = sc.nextDouble();
+				depositS(accountS,amountD);
+				String date = dateTransaction(); 
+				addTransaction(buildingTransaction(date,amountD, accountS.getIdC(),""),transactionDB);
+				System.out.println(iteMap(transactionDB));
+				System.out.println("Back to operation menu\n\n"+opMenu());
 				break;
 
-				case 3: System.out.println("Please enter amount you wish to move :");
-				int amountT = sc.nextInt();
-				System.out.println("Please enter receiving account :");
-				String receivingId = sc.next();
-				double initBalanceDebit = accountS.getBalance();
-				double newBalanceDebit = Operation.withdrawal(accountS.getBalance(),amountT,0);
-				accountS.setBalance(newBalanceDebit);
+				case 3:  double initBalanceDebit = accountS.getBalance();
+				System.out.println("Please enter amount you wish to move :");
+				double amountT = sc.nextDouble();
+				withdrawalS(accountS,amountT);
+				double newBalanceDebit = accountS.getBalance();
 				if (initBalanceDebit==newBalanceDebit) {
 					System.out.println("Back to operation menu\n\n"+opMenu());
 					break;
 				} else {
-					Current receivingAccount= currentDB.get(receivingId);
-					double newBallanceReceivingAccount= Operation.deposit(receivingAccount.getBalance(), amountT);
-					accountS.setBalance(newBallanceReceivingAccount);
-
+					System.out.println("Please enter receiving account :");
+					String receivingId = sc.next();
+					depositC(currentDB.get(receivingId),amountT);
 					System.out.println(dateTransaction());
+					//dateTransaction stored
 					System.out.println("Back to operation menu\n\n"+opMenu());
 					break;
 				}
-
-				} System.out.println("Back to account menu\n\n"+mainMenu());
-				break;
+				}
 			}
+			System.out.println("Back to account menu\n\n"+mainMenu());
+			break;
+
 			case 2 : Current accountC = currentDB.get(identity);
 			System.out.println(accountC+"\n");//Current
 			System.out.println(opMenu());
@@ -87,37 +90,34 @@ public class Test_client {
 				switch(choice3) {
 
 				case 1: System.out.println("Please enter amount you wish to withdraw :");
-				int amountW = sc.nextInt();
-				double newBalance = Operation.withdrawal(accountC.getBalance(), amountW,accountC.getOverdraft());
-				accountC.setBalance(newBalance);
-				System.out.println(accountC+"\n");
+				double amountW = sc.nextDouble();
+				withdrawalC(accountC,amountW);
+				//dateTransaction stored
 				System.out.println("Back to operation menu\n\n"+opMenu());
 				break;
 
-				case 2: System.out.println("Please enter amount you wish to deposit :");
-				int amountD = sc.nextInt();
-				double newBalance2 = Operation.deposit(accountC.getBalance(), amountD);
-				accountC.setBalance(newBalance2);
-				System.out.println(accountC+"\n");
-				System.out.println("Back to operation menu\n\n"+opMenu()); 
+				case 2: 		System.out.println("Please enter amount you wish to deposit :");
+				double amountD = sc.nextDouble();
+				depositC(accountC,amountD);
+				//dateTransaction stored
+				System.out.println("Back to operation menu\n\n"+opMenu());
 				break;
 
-				case 3: System.out.println("Please enter amount you wish to move :");
-				int amountT = sc.nextInt();
-				System.out.println("Please enter receiving account :");
-				String receivingId = sc.next();
-				double initBalanceDebit = accountC.getBalance();
-				double newBalanceDebit = Operation.withdrawal(accountC.getBalance(),amountT,accountC.getOverdraft());
-				accountC.setBalance(newBalanceDebit);
+				case 3: double initBalanceDebit = accountC.getBalance();
+				System.out.println("Please enter amount you wish to move :");
+				double amountT = sc.nextDouble();
+				withdrawalC(accountC,amountT);
+				double newBalanceDebit = accountC.getBalance();
 				if (initBalanceDebit==newBalanceDebit) {
 					System.out.println("Back to operation menu\n\n"+opMenu());
 					break;
 				} else {
-					Current receivingAccount= currentDB.get(receivingId);
-					double newBallanceReceivingAccount= Operation.deposit(receivingAccount.getBalance(), amountT);
-					accountC.setBalance(newBallanceReceivingAccount);
+					System.out.println("Please enter receiving account :");
+					String receivingId = sc.next();
+					depositC(currentDB.get(receivingId),amountT);
 					System.out.println(dateTransaction());
 					System.out.println("Back to operation menu\n\n"+opMenu());
+					//dateTransaction stored
 					break;
 				}
 				}
@@ -127,53 +127,6 @@ public class Test_client {
 			}
 		}
 		System.out.println("GoodBye.");
-	}
-	/** initialization of the map object  
-	 * @return map of object epargne
-	 */
-	public static HashMap<String, Savings> intiSDB() {
-		HashMap<String, Savings> savingsDB = new HashMap<String, Savings>(); 
-		Savings e1 = new Savings("E605", 9000, 6);
-		Savings e2 = new  Savings("H685", 8000, 5);
-		Savings e3 = new  Savings("R965", 1500, 2);
-		Savings e4 = new  Savings("D874", 875, 5);
-		Savings e5 = new  Savings("H685", 7500, 5);
-		savingsDB.put("T65R", e1);
-		savingsDB.put("Z78Q", e2);
-		savingsDB.put("J546", e3);
-		savingsDB.put("M95L", e4);
-		savingsDB.put("A01B", e5);
-		return savingsDB;
-
-	}
-	/** initialization of the map of object courant 
-	 * @return map of object courant
-	 */
-	public static HashMap<String, Current> intiCDB() {
-		HashMap<String, Current> currentDB = new HashMap<String, Current>(); 
-		Current c1 =  new Current("G836", 6000, -500);
-		Current c2 = new  Current("Z513", 8750, -2500);
-		Current c3 = new  Current("D943", 4620, -400);
-		Current c4 = new  Current("F842", 4500, -300);
-		Current c5 = new  Current("A946", 7850, -1500);
-		currentDB.put("T65R", c1);
-		currentDB.put("Z78Q", c2);
-		currentDB.put("J546", c3);
-		currentDB.put("M95L", c4);
-		currentDB.put("A01B", c5);
-		return currentDB;
-	}
-	/** initialization client list
-	 * @return lclient list
-	 */
-	public static ArrayList<Client> initClient() {
-		ArrayList< Client> listClient   = new ArrayList<>();
-		listClient.add(new Client("T65R", "Dupont"));
-		listClient.add(new Client("Z78Q", "Fleury"));
-		listClient.add(new Client("J546", "Leroy"));
-		listClient.add(new Client("M95L", "Bonnet"));
-		listClient.add(new Client("A01B", "Moreau"));
-		return listClient;
 	}
 	/**
 	 * init main menu
@@ -197,5 +150,82 @@ public class Test_client {
 		DateTimeFormatter formtter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String dateFormatted = date.format(formtter);
 		return dateFormatted;
+	}
+	/**
+	 *  method to add to balance of current
+	 * @param C current account
+	 * @return Current object modified
+	 */
+	public static  Current depositC(Current C, double amount) {
+		double newBalance2 = Operation.deposit(C.getBalance(), amount);
+		C.setBalance(newBalance2);
+		System.out.println(C+"\n");
+		return C;
+	}
+	/**
+	 * method to add to balance of savings
+	 * @param S savings account
+	 * @return Savings object modified
+	 */
+	public static  Savings depositS(Savings S, double amount) {
+		double newBalance2 = Operation.deposit(S.getBalance(), amount);
+		S.setBalance(newBalance2);
+		System.out.println(S+"\n");
+		return S;
+	}
+	/**
+	 * method to substract from balance
+	 * @param C object to have one of its balance modified
+	 * @return C object modified
+	 */
+	public static  Current withdrawalC(Current C, double amount) {
+		double newBalance = Operation.withdrawal(C.getBalance(), amount,C.getOverdraft());
+		C.setBalance(newBalance);
+		System.out.println(C+"\n");
+		return C;
+	}
+	/**
+	 *  method to substract from balance
+	 * @param S object to have one of its balance modified
+	 * @return S object modified
+	 */
+	public static  Savings withdrawalS(Savings S, double amount) {
+		double newBalance = Operation.withdrawal(S.getBalance(), amount,0);
+		S.setBalance(newBalance);
+		System.out.println(S+"\n");
+		return S;
+	}
+	public static Transaction buildingTransaction(String date, double amount, String receivingAccount, String sendingAccount) {
+		if (sendingAccount == "") {
+			Transaction transaction = new Transaction( amount,  date,  receivingAccount);
+			return transaction;
+		} else {
+			Transaction transaction = new Transaction( amount,  date,  receivingAccount, sendingAccount);
+			return transaction;
+		}
+	}
+	public static HashMap<String, Transaction> addTransaction(Transaction T, HashMap<String, Transaction> m) {
+		
+		m.put(randomId(), T);
+		return m;
+	}
+	private static String randomId() {
+		String passwordSet = "0123456789";
+		char[] password = new char[8];
+		for(int i=0; i<8;i++) {
+			int rand =(int) (Math.random()*passwordSet.length());
+			password[i] = passwordSet.charAt(rand);
+		}
+		return new String(password);
+	}
+	public static String iteMap(HashMap<String, Transaction> map) {
+
+		String listPart ="List of Transaction:\n";
+		for(Entry<String, Transaction> entry : map.entrySet()) {
+			String key = entry.getKey();
+			Transaction value = entry.getValue();
+			listPart +=  "ID transaction: "+key+"; Info transaction : "+value+"\n";
+		}
+		return listPart;
 	}
 }
