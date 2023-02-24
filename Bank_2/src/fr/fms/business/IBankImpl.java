@@ -51,7 +51,7 @@ public class IBankImpl implements IBank {
 	public Account consultAccount(double accountId) {		
 		Account account = accounts.get(accountId);
 		if(account == null)	{ 
-			System.out.println("Vous demandez un compte inexistant !");
+			System.out.println("You are asking for a non-existing account !");
 		}
 		return account;
 	}
@@ -113,8 +113,7 @@ public class IBankImpl implements IBank {
 			else System.err.println("virement impossible");
 		}
 	}
-	/**
-	 * Renvoi la liste des transactions sur un compte
+	/** Renvoi la liste des transactions sur un compte
 	 * @param accountId 
 	 * @return ArrayList<Transaction>
 	 */
@@ -151,6 +150,6 @@ public class IBankImpl implements IBank {
 	public String checkingBalance(double accountId) {
 		Account account = consultAccount(accountId);
 		double balance = account.getBalance();
-		return "Balance of this account : "+ balance+"\n";
+		return "Balance of your account : "+ balance+"\n";
 	}
 }
