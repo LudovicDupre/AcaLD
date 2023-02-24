@@ -2,6 +2,7 @@ package fr.fms.business;
 
 import java.util.ArrayList;
 import fr.fms.entities.Account;
+import fr.fms.entities.SimilarAccountException;
 import fr.fms.entities.Transaction;
 
 /**
@@ -15,6 +16,6 @@ public interface IBank {
 	public Account consultAccount(double accountId);						//renvoi le compte correspondant à l'id 
 	public void pay(double accountId, double amount);						//faire un versement sur un compte 
 	public boolean withdraw(double accountId, double amount);				//faire un retrait sur un compte
-	public void transfert(double accIdSrc, double accIdDest, double amount);	//faire un virement d'un compte source vers destination
+	public void transfert(double accIdSrc, double accIdDest, double amount) throws SimilarAccountException;	//faire un virement d'un compte source vers destination
 	public ArrayList<Transaction> listTransactions(double accountId); 	//renvoi la liste des opérations sur un compte donné
 }

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import fr.fms.entities.Account;
 import fr.fms.entities.Current;
 import fr.fms.entities.Customer;
+import fr.fms.entities.SimilarAccountException;
 import fr.fms.entities.Transaction;
 import fr.fms.entities.Transfert;
 import fr.fms.entities.withdrawal;
@@ -69,7 +70,6 @@ public class IBankImpl implements IBank {
 			account.getListTransactions().add(trans);				// création + ajout d'une opération de versement
 		}
 	}
-
 	/**
 	 * méthode qui effectue le retrait d'un montant sur un compte existant tout en gérant le découvert autorisé qqsoit le compte
 	 * @param accountId correspond à l'id du compte sur lequel effectuer le retrait
@@ -90,7 +90,7 @@ public class IBankImpl implements IBank {
 				account.getListTransactions().add(trans);		// création + ajout d'une opération de retrait
 			}
 			else {
-				System.out.println("vous avez dépassé vos capacités de retrait !");
+				System.err.println("vous avez dépassé vos capacités de retrait !");
 				return false;
 			}
 		}	
@@ -104,8 +104,8 @@ public class IBankImpl implements IBank {
 	 * @param amount correspond au montant à virer
 	 */
 	@Override
-	public void transfert(double accIdSrc, double accIdDest, double amount) {	//virement
-		if(accIdSrc == accIdDest)	System.out.println("vous ne pouvez retirer et verser sur le même compte !");
+	public void transfert(double accIdSrc, double accIdDest, double amount) throws SimilarAccountException {	//virement
+		if(accIdSrc == accIdDest)	throw new SimilarAccountException();
 		else {
 			if(withdraw(accIdSrc, amount)) {		//retrait si c'est possible
 				pay(accIdDest, amount);				//alors versement
@@ -142,7 +142,7 @@ public class IBankImpl implements IBank {
 				break;
 			}
 		}
-		if(exist == false)	customer.getListAccounts().add(account);
+		if(exist == false) customer.getListAccounts().add(account);
 	}
 	/** method to return the balance
 	 * @param accountId og the account user wish to check

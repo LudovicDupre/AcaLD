@@ -21,6 +21,7 @@ import fr.fms.entities.Account;
 import fr.fms.entities.Current;
 import fr.fms.entities.Customer;
 import fr.fms.entities.Saving;
+import fr.fms.entities.SimilarAccountException;
 import fr.fms.entities.Transaction;
 
 
@@ -28,14 +29,12 @@ import fr.fms.entities.Transaction;
 public class MyBankApp {	
 
 	public static Scanner sc = new Scanner(System.in);
+	public static IBankImpl bankJob = new IBankImpl();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SimilarAccountException {
 		//représente l'activité de notre banque
-		IBankImpl bankJob = new IBankImpl();
-		String userEntry;
-		Double number;
 
-
+		
 		//System.out.println("création puis affichage de 2 comptes bancaires");
 		Customer robert = new Customer(1, "Dupont", "Robert", "robert.dupont@xmail.com");
 		Customer julie = new Customer(2, "Jolie", "Julie", "julie.jolie@xmail.com");		
@@ -45,27 +44,14 @@ public class MyBankApp {
 		bankJob.addAccount(secondAccount);
 
 		List<Customer> listCustomer = Arrays.asList(julie, robert);
-		
+
 		//beginning
 		int choice2 = -1;
 		while (true) {
 
 			Account selectedAccount = null;
-			while (selectedAccount == null) {
-				
-				System.out.println("Please enter a valid account identifier : ");
-				userEntry = sc.nextLine();
-				
-				while (checkInput(userEntry)) {
-					
-					System.out.println("Please enter a number :");
-					userEntry = sc.nextLine();	
-					
-				}
-				double searchId = Double.parseDouble(userEntry);
-				selectedAccount = bankJob.consultAccount(searchId);
-			}
-			
+			selectedAccount = validBankAccount(selectedAccount);
+
 			Customer selectedCustomer = selectedAccount.getCustomer();
 			double selectedId =selectedAccount.getAccountId();
 
@@ -95,8 +81,8 @@ public class MyBankApp {
 					break;
 
 				case 3: // transfer
-					System.out.println("Please enter recipient account :");
-					long recipientId = sc.nextLong();
+					System.out.println("Recipient account :");
+					double recipientId = sc.nextLong();
 					System.out.println("Please enter amount to be transfered :");
 					double amountTransfer = sc.nextDouble();
 					bankJob.transfert(selectedId, recipientId, amountTransfer);
@@ -111,55 +97,15 @@ public class MyBankApp {
 				case 5: // list of operation
 					System.out.println(selectedAccount.getListTransactions()+"\n"+subMenu());
 					break;
-
 				}
 			}
 		}
-		//System.out.println("GoodBye.");
-
-
-//				while (selectedAccount == null) {
-//		
-//					System.out.println("Please enter a valid account identifier : ");
-//					userEntry = sc.nextLine();
-//					
-//					while (checkInput(userEntry)) {
-//						
-//						System.out.println("Please enter a number :");
-//						userEntry = sc.nextLine();	
-//						
-//					}
-//					double searchId = Double.parseDouble(userEntry);
-
-
-//		while (selectedAccount == null) {
-//			
-//			System.out.println("Please enter a valid account identifier : ");
-//			try {
-//				 searchId = sc.nextDouble();
-//				//double searchId = Double.parseDouble(userEntry);
-//			} catch (InputMismatchException e) {
-//				selectedAccount = null;
-//				 searchId = (double) 0;
-//			}
-//			
-
-	
 	}
 	public static String subMenu(){
 		return "1 : deposit - 2 : withdrawal - 3 : transfer - 4 : information account - 5 : operation summary - 6 : quit";
 	}
 	public static String printMatchingNumber() {
 		return "-------------------------------press the matching key----------------------------------------";
-	}
-	public static double loopingCheck() {
-		String userEntry = null;
-		Double number;
-		while (checkInput(userEntry)) {
-			userEntry = sc.nextLine();
-		}
-		number = Double.parseDouble(userEntry);
-		return number;
 	}
 	public static boolean checkInput(String userEntry) {
 		boolean hasString = false;
@@ -173,5 +119,21 @@ public class MyBankApp {
 		}
 		return hasString;
 	}
-	
+	public static  Account validBankAccount(Account account) {
+		String userEntry;
+		while (account == null) {
+			System.out.println("Please enter a valid account identifier : ");
+			userEntry = sc.nextLine();
+
+			while (checkInput(userEntry)) {
+				System.out.println("Please enter a number :");
+				userEntry = sc.nextLine();	
+			}
+			try {
+				double searchId = Double.parseDouble(userEntry);
+				account = bankJob.consultAccount(searchId);
+			} catch (NumberFormatException e ) {	}
+		}
+		return account;
+	}
 }

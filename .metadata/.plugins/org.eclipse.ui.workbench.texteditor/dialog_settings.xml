@@ -8,6 +8,7 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="email"/>
 		<list key="findhistory">
+			<item value="null"/>
 			<item value="email"/>
 			<item value="iteMapPlane"/>
 			<item value="planeDB"/>
