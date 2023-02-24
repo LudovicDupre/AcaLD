@@ -21,7 +21,6 @@ import fr.fms.entities.Account;
 import fr.fms.entities.Current;
 import fr.fms.entities.Customer;
 import fr.fms.entities.Saving;
-import fr.fms.entities.SimilarAccountException;
 import fr.fms.entities.Transaction;
 
 
@@ -31,7 +30,7 @@ public class MyBankApp {
 	public static Scanner sc = new Scanner(System.in);
 	public static IBankImpl bankJob = new IBankImpl();
 
-	public static void main(String[] args) throws SimilarAccountException {
+	public static void main(String[] args) {
 
 		Customer robert = new Customer(1, "Dupont", "Robert", "robert.dupont@xmail.com");
 		Customer julie = new Customer(2, "Jolie", "Julie", "julie.jolie@xmail.com");		
@@ -46,6 +45,7 @@ public class MyBankApp {
 		while (true) {
 
 			Account selectedAccount = null;
+			//validity check
 			selectedAccount = validBankAccount(selectedAccount);
 
 			Customer selectedCustomer = selectedAccount.getCustomer();
@@ -56,10 +56,7 @@ public class MyBankApp {
 			int choice =-1;
 			//Main menu
 			while(choice!=6) {
-				
-//				choice2 = sc.nextInt();
-//				while (choice2>6 || choice2<0)  {choice2 = sc.nextInt();}
-				
+				//validity check
 				choice =validMenuSelection(choice);
 				switch(choice)   {
 
@@ -80,11 +77,13 @@ public class MyBankApp {
 					break;
 
 				case 3: // transfer
+					Account recipientAccount = null;
 					System.out.println("Recipient account :");
-					double recipientId = sc.nextLong();
+					//validity check
+					recipientAccount=validBankAccount(recipientAccount);
 					System.out.println("Please enter amount to be transfered :");
 					double amountTransfer = sc.nextDouble();
-					bankJob.transfert(selectedId, recipientId, amountTransfer);
+					bankJob.transfert(selectedId, recipientAccount.getAccountId(), amountTransfer);
 					System.out.println(bankJob.checkingBalance(selectedId));
 					System.out.println(subMenu());
 					break;
@@ -98,6 +97,7 @@ public class MyBankApp {
 					break;
 				}
 			}
+			System.out.println("Goodbye "+selectedAccount.getCustomer().getFirstName()+" "+selectedAccount.getCustomer().getName()+".");
 		}
 	}
 	/** printing subMenu
@@ -105,24 +105,6 @@ public class MyBankApp {
 	 */
 	public static String subMenu(){
 		return "1 : deposit - 2 : withdrawal - 3 : transfer - 4 : information account - 5 : operation summary - 6 : quit\n\"-------------------------------press the matching key----------------------------------------\"";
-	}
-	/**method to check user input with defined character to respect
-	 * @param userEntry variable to check
-	 * @param numb1 character
-	 * @param numb2 character
-	 * @return a boolean to tell the program if the input is valid
-	 */
-	public static boolean checkInput(String userEntry, char numb1, char numb2) {
-		boolean hasString = false;
-		int index = 0;
-		while(index < userEntry.length()) {
-
-			if (!(userEntry.charAt(index)>=  numb1 &&  userEntry.charAt(index)<= numb2)) {
-				hasString = true;
-			}
-			index++;
-		}
-		return hasString;
 	}
 	/** method to force the user to enter a correct bank account
 	 * @param account to verify, null at first
@@ -133,13 +115,15 @@ public class MyBankApp {
 		while (account == null) {
 			System.out.println("Please enter a valid account identifier : ");
 			userEntry = sc.next();
-			while (checkInput(userEntry,'0','9')) {
+			while (bankJob.checkInput(userEntry,'0','9')) {
 				userEntry = sc.nextLine();	
 			}
 			try {
 				double searchId = Double.parseDouble(userEntry);
 				account = bankJob.consultAccount(searchId);
-			} catch (NumberFormatException e ) {}
+			} catch (NumberFormatException  | NullPointerException e ) {
+				System.err.println("There is no letter and symbol in a bank account Id!");
+			}
 		}
 		return account;
 	}
@@ -147,21 +131,19 @@ public class MyBankApp {
 	 * @param choice as negative value
 	 * @return choice with a proper value
 	 */
-	public static int validMenuSelection (int choice) {
-		
+	public static int validMenuSelection (int choice) {	
 		String userEntry =null;
-		
 		while (userEntry == null) {
 			System.out.println("Please enter a valid menu choice : ");
-			userEntry = sc.next();
-			
-			while (checkInput(userEntry,'1','6')) {
+			userEntry = sc.next();	
+			while (bankJob.checkInput(userEntry,'1','6')) {
 				userEntry = sc.nextLine();	
 			}
 			try {
-				choice = Integer.parseInt(userEntry);
-				
-			} catch (NumberFormatException e ) {}
+				choice = Integer.parseInt(userEntry);		
+			} catch (NumberFormatException e ) {
+				System.err.println("Incorrect Input.");
+			}
 		}
 		return choice;
 	}

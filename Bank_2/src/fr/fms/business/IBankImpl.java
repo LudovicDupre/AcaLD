@@ -7,7 +7,6 @@ import java.util.HashMap;
 import fr.fms.entities.Account;
 import fr.fms.entities.Current;
 import fr.fms.entities.Customer;
-import fr.fms.entities.SimilarAccountException;
 import fr.fms.entities.Transaction;
 import fr.fms.entities.Transfert;
 import fr.fms.entities.withdrawal;
@@ -28,7 +27,6 @@ public class IBankImpl implements IBank {
 		customers = new HashMap<Double,Customer>();
 		numTransactions = 1;	//ToDo en attendant insertion en base, incrémentation automatique
 	}
-
 	/** méthode qui ajoute un compte bancaire instancié à partir d'un client existant
 	 * @param Account est un compte bancaire appartenant à un client
 	 */
@@ -42,7 +40,6 @@ public class IBankImpl implements IBank {
 		//en revanche, compte tenu du diagramme de classe, un client dispose d'une liste de comptes
 		addAccountToCustomer(customer, account);			// j'ajoute au client son nouveau compte bancaire uniquement s'il ne l'a pas déjà
 	}
-
 	/**
 	 * méthode qui vérifie si un compte existe
 	 * @return Account si existe, null sinon
@@ -50,12 +47,8 @@ public class IBankImpl implements IBank {
 	@Override
 	public Account consultAccount(double accountId) {		
 		Account account = accounts.get(accountId);
-		if(account == null)	{ 
-			System.out.println("You are asking for a non-existing account !");
-		}
 		return account;
 	}
-
 	/**
 	 * méthode qui effectue le versement d'un montant sur un compte s'il existe
 	 * @param accountId correspond à l'id du compte sur lequel effectuer le versement
@@ -64,11 +57,10 @@ public class IBankImpl implements IBank {
 	@Override
 	public void pay(double accountId, double amount) {				
 		Account account = consultAccount(accountId);
-		if(account != null)	{
-			account.setBalance(account.getBalance() + amount);
-			Transaction trans = new Transfert(numTransactions++,new Date(),amount,accountId);
-			account.getListTransactions().add(trans);				// création + ajout d'une opération de versement
-		}
+
+		account.setBalance(account.getBalance() + amount);
+		Transaction trans = new Transfert(numTransactions++,new Date(),amount,accountId);
+		account.getListTransactions().add(trans);				// création + ajout d'une opération de versement
 	}
 	/**
 	 * méthode qui effectue le retrait d'un montant sur un compte existant tout en gérant le découvert autorisé qqsoit le compte
@@ -78,23 +70,20 @@ public class IBankImpl implements IBank {
 	@Override
 	public boolean withdraw(double accountId, double amount) {			
 		Account account = consultAccount(accountId);
-		if(account != null) {
-			double capacity = 0;
-			if(account instanceof Current) {
-				capacity = account.getBalance() + ((Current)account).getOverdraft();	//solde + decouvert autorisé				
-			}
-			else capacity = account.getBalance();
-			if(amount <= capacity) {
-				account.setBalance(account.getBalance() - amount);
-				Transaction trans = new withdrawal(numTransactions++,new Date(),amount,accountId);
-				account.getListTransactions().add(trans);		// création + ajout d'une opération de retrait
-			}
-			else {
-				System.err.println("vous avez dépassé vos capacités de retrait !");
-				return false;
-			}
+		double capacity = 0;
+		if(account instanceof Current) {
+			capacity = account.getBalance() + ((Current)account).getOverdraft();	//solde + decouvert autorisé				
+		}
+		else capacity = account.getBalance();
+		if(amount <= capacity) {
+			account.setBalance(account.getBalance() - amount);
+			Transaction trans = new withdrawal(numTransactions++,new Date(),amount,accountId);
+			account.getListTransactions().add(trans);		// création + ajout d'une opération de retrait
+		}
+		else {
+			System.err.println("You can no longer withdraw.");
+			return false;
 		}	
-		else return false;	//compte inexistant -> retrait impossible
 		return true;	//retrait effectué
 	}
 	/**
@@ -104,13 +93,13 @@ public class IBankImpl implements IBank {
 	 * @param amount correspond au montant à virer
 	 */
 	@Override
-	public void transfert(double accIdSrc, double accIdDest, double amount) throws SimilarAccountException {	//virement
-		if(accIdSrc == accIdDest)	throw new SimilarAccountException();
+	public void transfert(double accIdSrc, double accIdDest, double amount) {	//virement
+		if(accIdSrc == accIdDest)	System.err.println("Cannot choose same account twice.");
 		else {
 			if(withdraw(accIdSrc, amount)) {		//retrait si c'est possible
 				pay(accIdDest, amount);				//alors versement
 			}
-			else System.err.println("virement impossible");
+			else System.err.println("Transfer impossible : Not enought fond.");
 		}
 	}
 	/** Renvoi la liste des transactions sur un compte
@@ -151,5 +140,23 @@ public class IBankImpl implements IBank {
 		Account account = consultAccount(accountId);
 		double balance = account.getBalance();
 		return "Balance of your account : "+ balance+"\n";
+	}
+	/**method to check user input with defined character to respect
+	 * @param userEntry variable to check
+	 * @param numb1 character
+	 * @param numb2 character
+	 * @return a boolean to tell the program if the input is valid
+	 */
+	public boolean checkInput(String userEntry, char char1, char char2) {
+		boolean hasString = false;
+		int index = 0;
+		while(index < userEntry.length()) {
+
+			if (!(userEntry.charAt(index)>=  char1 &&  userEntry.charAt(index)<= char2)) {
+				hasString = true;
+			}
+			index++;
+		}
+		return hasString;
 	}
 }
