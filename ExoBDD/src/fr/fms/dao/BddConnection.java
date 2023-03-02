@@ -1,12 +1,14 @@
 package fr.fms.dao;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
-
+/** Singleton  BddConnection
+ * @author DupreL + Haikel Fazzani
+ *
+ */
 public class BddConnection  {
-	
+
 	private static Connection conn;
 
 	static 
