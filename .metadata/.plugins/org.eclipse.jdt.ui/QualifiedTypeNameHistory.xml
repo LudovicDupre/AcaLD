@@ -33,5 +33,8 @@
     <fullyQualifiedTypeName name="java.sql.DriverManager"/>
     <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.sql.Statement"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="fr.fms.entities.Users"/>
+    <fullyQualifiedTypeName name="fr.fms.dao.BddConnection"/>
 </qualifiedTypeNameHistroy>
