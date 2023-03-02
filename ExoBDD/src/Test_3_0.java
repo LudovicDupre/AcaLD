@@ -12,23 +12,12 @@ import fr.fms.entities.Article;
 
 import  java.lang.AutoCloseable;
 
-public class test  {
+public class Test_3_0  {
 	
 	public static void main(String args[]) throws Exception {
 		
-//		Properties prop = ReadPropertiesFileTest.readPropertiesFile("C:\\Users\\DupreL\\eclipse-workspace\\ExoBDD\\lib\\config.properties");
-//		try {
-//			Class.forName(prop.getProperty("db.driver.class"));
-//
-//		}
-//		catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		String url = prop.getProperty("db.url");
-//		String login =  prop.getProperty("db.login");
-//		String password = prop.getProperty("db.password");
 		ArrayList<Article> articles = new ArrayList<Article>();
-//		try (Connection connection = DriverManager.getConnection(url,login,password)) {
+
 		
 			String strSql = "SELECT * FROM T_Articles";
 			try (Statement statement = BddConnection.getCon().createStatement()) {
@@ -41,7 +30,6 @@ public class test  {
 						articles.add(new Article(rsIdUser,rsDescription,rsMarque,rsPrixUnitaire));
 					}
 				}
-			//}
 			for (Article a: articles)
 				System.out.println(a.getId()+ "  -  " + a.getDescription()+"  -  "+ a.getBrand()+ "  -  "+a.getPrice());
 		}

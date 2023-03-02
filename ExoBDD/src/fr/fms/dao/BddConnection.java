@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.util.Properties;
 /** Singleton  BddConnection
  * @author DupreL + Haikel Fazzani
- *
+ * https://www.youtube.com/watch?v=zNyBTqwML4A&ab_channel=HaikelFazzani
  */
 public class BddConnection  {
 

@@ -13,7 +13,6 @@ public class ArticleDao implements Dao<Article> {
 
 	@Override
 	public void create(Article obj) throws SQLException {
-		//Connection conn = BddConnection.getConnection();
 
 		String strSql = "INSERT INTO T_Articles (Descritption , Brand, UnitaryPrice)"
 				+"VALUES (?,?,?)";
@@ -54,8 +53,6 @@ public class ArticleDao implements Dao<Article> {
 	@Override
 	public boolean update(Article obj) throws SQLException {
 
-		//Connection conn = BddConnection.getConnection();
-
 		String strSql = "UPDATE t_articles SET IdArticles = ?, Description = ?, Brand = ?, UnitaryPrice = ?";
 		strSql += "WHERE IdArticles = ?;";
 		boolean rowUpdated = false;
@@ -72,7 +69,7 @@ public class ArticleDao implements Dao<Article> {
 
 	@Override
 	public boolean delete(Article obj) throws SQLException {
-		//Connection conn = BddConnection.getConnection();
+		
 		String strSql = "DELETE FROM T_Articles WHERE Id = ?";
 		boolean rowDeleted = false;
 

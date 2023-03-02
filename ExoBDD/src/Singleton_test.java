@@ -10,6 +10,7 @@ public class Singleton_test {
 		Connection x = BddConnection.getCon();
 		new BddConnection();
 		Connection y = BddConnection.getCon();
+		new BddConnection();
 		Connection z = BddConnection.getCon();
 		
 		System.out.println("HashCode of x is " + x.hashCode());
