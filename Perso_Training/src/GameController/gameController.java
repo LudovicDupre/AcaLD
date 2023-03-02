@@ -7,14 +7,6 @@ import card_game.Player;
 import card_game.PlayingCard;
 
 
-class View {
-	public void something() {
-	};
-
-	public void setController(gameController gc)  {
-	};
-}
-
 public class gameController {
 	
 	enum GameState {
@@ -38,27 +30,28 @@ public class gameController {
 	}
 	public void run() {
 		while (gameState == GameState.AddingPlayers) {
-			view.something();
+			view.promptForPlayerName();
 		}
 		
 		switch (gameState) {
 		case CardsDealt:
-			view.something();
+			view.promptForFlip();
 			break;
 		case WinnerRevealed:
-			view.something();
+			view.promptForNewGame();
 			break;
 		}
 	}
 	public void addPlayer(String playerName) {
 		if (gameState == GameState.AddingPlayers) {
 			players.add(new Player (playerName));
-			view.something();
+			view.showPlayerName(player	s.size(), playerName);
 		}
 	}
 	public void startGame() {
 		if (gameState != GameState.CardsDealt) {
 			deck.shuffle();
+			int playerIndex = 1;
 			for (Player player : players) {
 				player.addCardToHand(deck.removeTopCard());
 			}
@@ -70,7 +63,7 @@ public class gameController {
 		for (Player player : players) {
 			PlayingCard pc = player.getCard(0);
 			pc.flip();
-			view.something();
+			view.showCardForPlayer(playerIndex++, player.getName(), pc.getRank().toString(), pc.getSuit().toString());
 		}
 		
 		evaluateWinner();
@@ -111,7 +104,7 @@ public class gameController {
 		}
 	}
 	void displayWinner() {
-		view.something();
+		view.showWinner(winner.getName());
 	}
 	void rebuildDeck() {
 		for(Player player : players) {

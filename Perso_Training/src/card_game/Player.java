@@ -11,6 +11,14 @@ public class Player {
 		hand = new Hand();
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public void addCardToHand(PlayingCard pc) {
 		hand.addCard(pc);
 	}

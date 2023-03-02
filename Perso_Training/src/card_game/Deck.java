@@ -28,6 +28,9 @@ public class Deck {
 	public void returnCardToDeck(PlayingCard pc) {
 		cards.add(pc);
 	}
+	public PlayingCard removeTopCard() {
+		return cards.remove(0);
+	}
 
 	public List<PlayingCard> getCards() {
 		return cards;

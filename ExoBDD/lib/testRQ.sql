@@ -1,0 +1,1 @@
+SELECT * from T_Articles;

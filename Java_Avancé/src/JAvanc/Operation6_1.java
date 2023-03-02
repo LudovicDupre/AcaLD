@@ -30,7 +30,7 @@ public class Operation6_1 {
 	 int c=0;
 	 try {
 	 c = a/b;
-	 } catch ( java.lang.ArithmeticException e) {
+	 } catch ( ArithmeticException e) {
 		 System.out.println("You cannot divided by 0.");
 	 }
 	 return c;
