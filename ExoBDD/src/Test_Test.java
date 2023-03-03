@@ -30,10 +30,7 @@ public class Test_Test {
 
 			if (result==true) {
 				System.out.println("Sucessful connection\n");
-				
-				ArrayList<Article> fullArticles = artDao.readAll();
-				for (Article a: fullArticles)
-					System.out.println(a.getId()+ "  -  " + a.getDescription()+"  -  "+ a.getBrand()+ "  -  "+a.getPrice());
+				artDao.readAll();
 
 			}else {
 				System.err.println("Wrong input.");

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import fr.fms.entities.Users;
 
-public class UserDao implements Dao <Users>{
+public class UserDao implements Dao<Users>{
 
 	@Override
 	public void create(Users obj) throws SQLException {
