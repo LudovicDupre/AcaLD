@@ -34,7 +34,7 @@ public class ArticleDao implements Dao<Article> {
 		Connection conn = BddConnection.getCon();
 
 		String strSql = "SELECT * FROM T_Articles"
-		 + "WHERE IdArticles = "+id+";";
+				+ " WHERE IdArticles = '"+id+"';";
 
 		try (Statement statement = conn.createStatement()) {
 			try (ResultSet resultSet = statement.executeQuery(strSql)) {
@@ -69,7 +69,7 @@ public class ArticleDao implements Dao<Article> {
 
 	@Override
 	public boolean delete(Article obj) throws SQLException {
-		
+
 		String strSql = "DELETE FROM T_Articles WHERE Id = ?";
 		boolean rowDeleted = false;
 
@@ -82,7 +82,7 @@ public class ArticleDao implements Dao<Article> {
 	}
 
 	@Override
-	public ArrayList<Article> readAll() throws SQLException {
+	public void readAll() throws SQLException {
 
 		ArrayList<Article> articles = new ArrayList<Article>();
 
@@ -101,6 +101,9 @@ public class ArticleDao implements Dao<Article> {
 				}
 			}
 		}
-		return articles;
+		System.err.println("\nArticles list :\n");
+		for (Article article : articles) {
+			System.out.println(article.getId()+" "+article.getDescription()+" "+article.getBrand()+" "+article.getPrice());
+		}
 	}
 }

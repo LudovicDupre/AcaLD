@@ -15,26 +15,75 @@ public class App {
 	public static ArticleDao artDao = new ArticleDao();
 
 	public static void main(String[] args) throws SQLException {
+		
+		ArrayList<Article> cart = new ArrayList<Article>();
+		int menuChoice = -1;
+		int subChoice = -1;
+		int subChoice2 = -1;
+		
+		while (true) {
+			//Main menu
 
-		while(true) {
-			System.out.println("Please enter your login :");
-			String login = sc.next();
+			while (menuChoice != 4) {
+				System.out.println("1-View cart;  2-View article list;  3-Order cart\nSelect a choice :");
+				menuChoice = sc.nextInt();
+				switch (menuChoice) {
 
-			System.out.println("Please enter your password :");
-			String password = sc.next();
+				case 1 : // View cart
+					//subMenu of view cart
+	
+					while (subChoice != 3) {
+						shopJob.displayCart(cart);
+						System.out.println("1- Remove an article\n2-Order\n3-Quit");
+						subChoice = sc.nextInt();
+	
+						switch (subChoice) {
 
-			boolean result = shopJob.loginCheck(login, password);
+						case 1 : // Remove article
+							System.out.println("Select article to remove:");
+							int index = sc.nextInt();
+							shopJob.subCart(index-1,cart);
+							break;
 
-			if (result==true) {
-				System.out.println("Sucessful connection\n");
-				
-				ArrayList<Article> fullArticles = artDao.readAll();
-				for (Article a: fullArticles)
-					System.out.println(a.getId()+ "  -  " + a.getDescription()+"  -  "+ a.getBrand()+ "  -  "+a.getPrice());
+						case 2 : // Order
+							shopJob.orderCart();
+							break;
+						}
+					}
+					break;
 
-			}else {
-				System.err.println("Wrong input.");
+				case 2 : // View articles
+					//subMenu of view article
+
+					while (subChoice2 != 3) {
+						artDao.readAll();
+						System.out.println("\n\n1- Add an article to cart\n2-Order\n3-Quit");
+						subChoice2 = sc.nextInt();
+
+						switch (subChoice2) {
+
+						case 1 : // Remove article
+							System.out.println("Select article to add:");
+							int idArticle = sc.nextInt();
+							Article a = artDao.read(idArticle);
+							shopJob.addCart(a,cart);
+							shopJob.displayCart(cart);
+							System.out.println("Addition successful.\n\n");
+							break;
+
+						case 2 : // Order
+							shopJob.orderCart();
+							break;
+						}
+					}
+					break;
+
+				case 3 : // Order
+					shopJob.orderCart();
+					break;
+				}
 			}
+			System.out.println("Back to menu.");
 		}
 	}
 }

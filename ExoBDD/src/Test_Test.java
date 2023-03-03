@@ -3,6 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import fr.fms.business.IJobImpl;
 import fr.fms.dao.ArticleDao;
@@ -14,32 +15,28 @@ public class Test_Test {
 
 	public static ArticleDao artDao = new ArticleDao();
 	public static IJobImpl shopJob = new IJobImpl();
-
+	public static Scanner sc = new Scanner(System.in);
+	
 	public static void main(String[] args) throws SQLException {
 
-		//		method (login , password) return a boolean , only one sql request.
-		//		if null?
-		String login = "Anderson";
-		String password = "Neo";
+		while(true) {
+			System.out.println("Please enter your login :");
+			String login = sc.next();
 
+			System.out.println("Please enter your password :");
+			String password = sc.next();
 
-		Connection conn = BddConnection.getCon();
+			boolean result = shopJob.loginCheck(login, password);
 
-		String strSql = "SELECT T_Users.Password FROM T_Users WHERE Login ='"+login+"';";
+			if (result==true) {
+				System.out.println("Sucessful connection\n");
+				
+				ArrayList<Article> fullArticles = artDao.readAll();
+				for (Article a: fullArticles)
+					System.out.println(a.getId()+ "  -  " + a.getDescription()+"  -  "+ a.getBrand()+ "  -  "+a.getPrice());
 
-		try (Statement statement = conn.createStatement()) {
-			try (ResultSet resultSet = statement.executeQuery(strSql)) {
-				while (resultSet.next()) {
-					String rsPassword = resultSet.getString(1);
-					System.out.println(rsPassword);
-					System.out.println(password);
-					
-					if (rsPassword.compareTo(password)==0) {
-						System.out.println("TRUE");
-					} else {
-						System.out.println("FALSE");
-					}
-				}
+			}else {
+				System.err.println("Wrong input.");
 			}
 		}
 	}

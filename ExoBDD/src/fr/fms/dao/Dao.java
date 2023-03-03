@@ -2,7 +2,6 @@ package fr.fms.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public interface Dao<T> {
 	
@@ -11,5 +10,5 @@ public interface Dao<T> {
 	public T read(int id) throws SQLException;
 	public boolean update(T obj) throws SQLException;
 	public boolean delete(T obj) throws SQLException;
-	public ArrayList<T> readAll() throws SQLException;
+	public void readAll() throws SQLException;
 }

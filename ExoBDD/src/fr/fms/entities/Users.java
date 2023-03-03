@@ -5,7 +5,7 @@ public class Users {
 	private int IdUSer;
 	private String login;
 	private String password;
-
+	//constructor
 	public Users(int IdUSer, String login, String password) {
 		this.IdUSer = IdUSer;
 		this.login = login;

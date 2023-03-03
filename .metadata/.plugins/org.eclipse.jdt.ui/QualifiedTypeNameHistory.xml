@@ -37,7 +37,7 @@
     <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="fr.fms.business.IJobImpl"/>
     <fullyQualifiedTypeName name="fr.fms.dao.ArticleDao"/>
-    <fullyQualifiedTypeName name="fr.fms.entities.Article"/>
     <fullyQualifiedTypeName name="fr.fms.entities.Users"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="fr.fms.entities.Article"/>
 </qualifiedTypeNameHistroy>

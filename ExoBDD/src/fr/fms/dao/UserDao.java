@@ -79,8 +79,8 @@ public class UserDao implements Dao <Users>{
 	}
 
 	@Override
-	public ArrayList<Users> readAll() throws SQLException {
-		
+	public void readAll() throws SQLException {
+
 		ArrayList<Users> users = new ArrayList<Users>();
 
 		Connection conn = BddConnection.getCon();
@@ -97,6 +97,8 @@ public class UserDao implements Dao <Users>{
 				}
 			}
 		}
-		return users;
+		for (Users user : users) {
+			System.out.println(user.getIdUSer()+" "+user.getLogin()+" "+user.getPassword());
+		}
 	}
 }
