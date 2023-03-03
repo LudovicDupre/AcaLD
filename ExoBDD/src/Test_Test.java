@@ -1,3 +1,4 @@
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,19 +17,28 @@ public class Test_Test {
 
 	public static void main(String[] args) throws SQLException {
 
-		//		ArrayList<Article> fullArticles = artDao.readAll();
-		//		for (Article a: fullArticles)
-		//			System.out.println(a.getId()+ "  -  " + a.getDescription()+"  -  "+ a.getBrand()+ "  -  "+a.getPrice());
+		//		method (login , password) return a boolean , only one sql request.
+		//		if null?
+		String login = "Anderson";
+		String password = "Neo";
 
-		int id = -1;
-		try (Statement statement = BddConnection.getCon().createStatement()) {
-			String strSql = "SELECT * FROM T_Users WHERE Login ='Skywalker';";
+
+		Connection conn = BddConnection.getCon();
+
+		String strSql = "SELECT T_Users.Password FROM T_Users WHERE Login ='"+login+"';";
+
+		try (Statement statement = conn.createStatement()) {
 			try (ResultSet resultSet = statement.executeQuery(strSql)) {
 				while (resultSet.next()) {
-					id =resultSet.getInt(1);
+					String rsPassword = resultSet.getString(1);
+					System.out.println(rsPassword);
+					System.out.println(password);
 					
-					System.out.println(id);
-
+					if (rsPassword.compareTo(password)==0) {
+						System.out.println("TRUE");
+					} else {
+						System.out.println("FALSE");
+					}
 				}
 			}
 		}

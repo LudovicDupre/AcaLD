@@ -1,7 +1,7 @@
 command=C\:\\Users\\DupreL\\.p2\\pool\\plugins\\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.5.v20221102-0933\\jre\\bin\\javadoc.exe
 content_assist_completion_replacement_background=200,200,0
 content_assist_completion_replacement_foreground=194,0,0
-content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="fr.parking.lot.ParkingSlot"><rhs name\="fr.parking.lot.ParkingSlot"/></lhs><lhs name\="fr.fms.dao.BddConnection"><rhs name\="fr.fms.dao.BddConnection"/></lhs></history>
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="fr.parking.lot.ParkingSlot"><rhs name\="fr.parking.lot.ParkingSlot"/></lhs><lhs name\="fr.fms.dao.BddConnection"><rhs name\="fr.fms.dao.BddConnection"/></lhs><lhs name\="fr.fms.business.IJob"><rhs name\="fr.fms.business.IJobImpl"/></lhs><lhs name\="fr.fms.business.IJobImpl"><rhs name\="fr.fms.business.IJobImpl"/></lhs></history>
 content_assist_number_of_computers=17
 content_assist_parameters_background=48,54,59
 content_assist_parameters_foreground=235,237,239

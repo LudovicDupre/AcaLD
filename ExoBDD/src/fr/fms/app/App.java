@@ -23,10 +23,11 @@ public class App {
 			System.out.println("Please enter your password :");
 			String password = sc.next();
 
-			boolean result = shopJob.compareUser(shopJob.checkUserLogin(login),shopJob.checkUserPassword(password));
+			boolean result = shopJob.loginCheck(login, password);
 
 			if (result==true) {
-
+				System.out.println("Sucessful connection\n");
+				
 				ArrayList<Article> fullArticles = artDao.readAll();
 				for (Article a: fullArticles)
 					System.out.println(a.getId()+ "  -  " + a.getDescription()+"  -  "+ a.getBrand()+ "  -  "+a.getPrice());
