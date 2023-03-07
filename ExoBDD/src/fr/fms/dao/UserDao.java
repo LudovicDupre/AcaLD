@@ -10,6 +10,10 @@ import fr.fms.entities.Users;
 
 public class UserDao implements Dao<Users>{
 
+	public UserDao(Connection connection) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void create(Users obj) throws SQLException {
 

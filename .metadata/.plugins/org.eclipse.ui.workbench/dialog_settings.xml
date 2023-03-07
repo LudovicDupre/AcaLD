@@ -19,9 +19,10 @@
 		</list>
 	</section>
 	<section name="NewWizardAction">
-		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.datatools.sqltools.internal.sqlscrapbook.wizards.NewSQLScrapbookFileCreationWizard"/>
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.wst.html.ui.internal.wizard.NewHTMLWizard"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="org.eclipse.datatools.sql"/>
+			<item value="org.eclipse.wst.web.ui"/>
 		</list>
 	</section>
 	<section name="PreferencesImportWizard">

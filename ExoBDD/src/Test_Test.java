@@ -13,7 +13,7 @@ import fr.fms.entities.Users;
 
 public class Test_Test {
 
-	public static ArticleDao artDao = new ArticleDao();
+	//public static ArticleDao artDao = new ArticleDao();
 	public static IJobImpl shopJob = new IJobImpl();
 	public static Scanner sc = new Scanner(System.in);
 	
@@ -30,7 +30,7 @@ public class Test_Test {
 
 			if (result==true) {
 				System.out.println("Sucessful connection\n");
-				artDao.readAll();
+				//artDao.readAll();
 
 			}else {
 				System.err.println("Wrong input.");

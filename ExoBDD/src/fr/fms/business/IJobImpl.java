@@ -32,6 +32,8 @@ public class IJobImpl implements IJob<Article>{
 		}
 		return check;
 	}
+
+	
 	@Override
 	public void displayCart(ArrayList<Article> cart) {
 		System.err.println("Your cart :");

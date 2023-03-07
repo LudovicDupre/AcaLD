@@ -11,6 +11,14 @@ import fr.fms.entities.Article;
 
 public class ArticleDao implements Dao<Article> {
 
+	public ArticleDao(Connection connection) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public ArticleDao() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void create(Article obj) throws SQLException {
 
@@ -89,6 +97,33 @@ public class ArticleDao implements Dao<Article> {
 		Connection conn = BddConnection.getCon();
 
 		String strSql = "SELECT * FROM T_Articles";
+
+		try (Statement statement = conn.createStatement()) {
+			try (ResultSet resultSet = statement.executeQuery(strSql)) {
+				while (resultSet.next()) {
+					int rsIdUser =resultSet.getInt(1);
+					String rsDescription = resultSet.getString(2);
+					String rsMarque = resultSet.getString(3);
+					double rsPrixUnitaire = resultSet.getDouble(4);
+					articles.add(new Article(rsIdUser,rsDescription,rsMarque,rsPrixUnitaire));
+				}
+			}
+		}
+		System.err.println("\nArticles list :\n");
+		for (Article article : articles) {
+			System.out.println(article.getId()+" "+article.getDescription()+" "+article.getBrand()+" "+article.getPrice());
+		}
+	}
+	/** print out articles matching input category
+	 * @param cat selected category
+	 * @throws SQLException
+	 */
+	public void  displayCat(int cat) throws SQLException {
+
+		ArrayList<Article> articles = new ArrayList<Article>();
+
+		Connection conn = BddConnection.getCon();
+		String strSql = "SELECT * FROM T_Articles WHERE IdCategory ="+cat+";";
 
 		try (Statement statement = conn.createStatement()) {
 			try (ResultSet resultSet = statement.executeQuery(strSql)) {
