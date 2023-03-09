@@ -14,7 +14,8 @@ public class BddConnection  {
 	static 
 	{
 		try 
-		{
+		{ 
+			System.out.println("Première connexion");
 			Properties prop = ReadPropertiesFileTest.readPropertiesFile("C:\\Users\\DupreL\\eclipse-workspace\\ExoBDD\\lib\\config.properties");
 			Class.forName(prop.getProperty("db.driver.class"));
 			conn = DriverManager.getConnection(prop.getProperty("db.url"), prop.getProperty("db.login"),prop.getProperty("db.password"));

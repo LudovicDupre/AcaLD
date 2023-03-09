@@ -34,7 +34,6 @@
     <fullyQualifiedTypeName name="fr.fms.dao.BddConnection"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="fr.fms.business.IJobImpl"/>
-    <fullyQualifiedTypeName name="fr.fms.dao.ArticleDao"/>
     <fullyQualifiedTypeName name="fr.fms.entities.Users"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
@@ -42,4 +41,6 @@
     <fullyQualifiedTypeName name="fr.fms.dao.DaoFacto"/>
     <fullyQualifiedTypeName name="fr.fms.dao.Dao"/>
     <fullyQualifiedTypeName name="fr.fms.entities.Article"/>
+    <fullyQualifiedTypeName name="fr.fms.dao.ArticleDao"/>
+    <fullyQualifiedTypeName name="fr.fms.dao.UserDao"/>
 </qualifiedTypeNameHistroy>

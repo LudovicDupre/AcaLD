@@ -14,6 +14,10 @@ public class UserDao implements Dao<Users>{
 		// TODO Auto-generated constructor stub
 	}
 
+	public UserDao() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void create(Users obj) throws SQLException {
 
@@ -36,8 +40,8 @@ public class UserDao implements Dao<Users>{
 		Users user = null;
 		Connection conn = BddConnection.getCon();
 
-		String strSql = "SELECT * FROM T_User"
-				+ "WHERE IdUsers = "+id+";";
+		String strSql = "SELECT * FROM T_Users"
+				+ " WHERE IdUsers = "+id+";";
 
 		try (Statement statement = conn.createStatement()) {
 			try (ResultSet resultSet = statement.executeQuery(strSql)) {
