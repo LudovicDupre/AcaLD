@@ -18,7 +18,7 @@ public class ShopApp {
 	private static Scanner scan = new Scanner(System.in); 
 	private static IBusinessImpl business = new IBusinessImpl();
 	private static Authenticate authenticate = new Authenticate();
-	
+
 	public static final String TEXT_BLUE = "\u001B[36m";
 	public static final String TEXT_RESET = "\u001B[0m";	
 	private static final String COLUMN_ID = "IDENTIFIANT";
@@ -26,10 +26,10 @@ public class ShopApp {
 	private static final String COLUMN_BRAND = "MARQUE";
 	private static final String COLUMN_PRICE = "PRIX";
 	private static final String COLUMN_NAME = "NAME";
-	
+
 	private static int idUser = 0;
 	private static String login = null; 
-	
+
 	public static void main(String[] args) {
 		System.out.println("Bonjour et bienvenu dans ma boutique, voici la liste d'articles en stock\n");
 		displayArticles();
@@ -38,23 +38,23 @@ public class ShopApp {
 			displayMenu();
 			choice = scanInt();
 			switch(choice) {
-				case 1 : addArticle();				
-					break;					
-				case 2 : removeArticle();
-					break;					
-				case 3 : displayCart(true);
-					break;					
-				case 4 : displayArticles();
-					break;						
-				case 5 : displayCategories();
-					break;
-				case 6 : displayArticlesByCategoryId();
-					break;
-				case 7 : connection();
-					break;
-				case 8 : System.out.println("à bientôt dans notre boutique :)");
-					break;					
-				default : System.out.println("veuillez saisir une valeur entre 1 et 8");
+			case 1 : addArticle();				
+			break;					
+			case 2 : removeArticle();
+			break;					
+			case 3 : displayCart(true);
+			break;					
+			case 4 : displayArticles();
+			break;						
+			case 5 : displayCategories();
+			break;
+			case 6 : displayArticlesByCategoryId();
+			break;
+			case 7 : connection();
+			break;
+			case 8 : System.out.println("à bientôt dans notre boutique :)");
+			break;					
+			default : System.out.println("veuillez saisir une valeur entre 1 et 8");
 			}
 		}
 	}
@@ -74,7 +74,7 @@ public class ShopApp {
 		System.out.println("7 : Connexion(Deconnexion) à votre compte");
 		System.out.println("8 : sortir de l'application");
 	}
-	
+
 	/**
 	 * Méthode qui affiche tous les articles en base en centrant le texte 
 	 */
@@ -82,7 +82,7 @@ public class ShopApp {
 		System.out.println(Article.centerString(COLUMN_ID) + Article.centerString(COLUMN_DESCRIPTION) + Article.centerString(COLUMN_BRAND) + Article.centerString(COLUMN_PRICE));
 		business.readArticles().forEach(System.out::println);
 	}
-	
+
 	/**
 	 * Méthode qui affiche tous les articles par catégorie en utilisant printf
 	 */
@@ -108,7 +108,7 @@ public class ShopApp {
 		System.out.println(Category.centerString(COLUMN_ID) + Category.centerString(COLUMN_NAME) + Category.centerString(COLUMN_DESCRIPTION));
 		business.readCategories().forEach(System.out::println);		
 	}
-	
+
 	/**
 	 * Méthode qui supprime un article du panier
 	 */
@@ -132,7 +132,7 @@ public class ShopApp {
 		}
 		else System.out.println("l'article que vous souhaitez ajouter n'existe pas, pb de saisi id");
 	} 
-	
+
 	/**
 	 * Méthode qui affiche le contenu du panier + total de la commande + propose de passer commande
 	 */
@@ -153,7 +153,7 @@ public class ShopApp {
 			}
 		}
 	}
-	
+
 	/**
 	 * Méthode qui passe la commande, l'utilisateur doit être connecté
 	 * si c'est le cas, l'utilisateur sera invité à associé un client à sa commande
@@ -232,7 +232,7 @@ public class ShopApp {
 			String log = scan.next();
 			System.out.println("saisissez votre password : ");
 			String pwd = scan.next();
-			
+
 			int id = authenticate.existUser(log,pwd);
 			if(id > 0)	{
 				login = log;
@@ -249,7 +249,7 @@ public class ShopApp {
 			}
 		}
 	}
-	
+
 	/**
 	 * Méthode qui ajoute un nouvel utilisateur en base
 	 */
@@ -267,7 +267,7 @@ public class ShopApp {
 		}
 		else	System.out.println("Login déjà existant en base, veuillez vous connecter");
 	}
-	
+
 	public static void stop(int time) {
 		try {
 			Thread.sleep(time * 1000);
@@ -283,7 +283,7 @@ public class ShopApp {
 		}
 		return scan.nextInt();
 	}
-	
+
 	public static boolean isValidEmail(String email) {
 		String regExp = "^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\\.[a-z][a-z]+$";	
 		return email.matches(regExp);

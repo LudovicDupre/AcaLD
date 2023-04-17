@@ -81,7 +81,7 @@ public class CustomerDao implements Dao<Customer> {
 		}			
 		return customers;
 	}
-	
+
 	public Customer findCustomerByEmail(String email) {
 		String strSql = "SELECT * FROM T_Customers where Email=?;";
 		try(PreparedStatement ps = connection.prepareStatement(strSql)){
@@ -98,5 +98,4 @@ public class CustomerDao implements Dao<Customer> {
 		}	
 		return null;
 	}
-
 }

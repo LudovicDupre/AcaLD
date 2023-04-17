@@ -1,5 +1,5 @@
-CREATE USER 'ludovic'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'alexander'@'localhost' IDENTIFIED BY 'password';
 
 SELECT HOST,USER FROM mysql.user;
 
-GRANT ALL ON shop.* TO 'ludovic'@localhost';
+GRANT ALL ON ECourses.* TO 'alexander'@localhost';

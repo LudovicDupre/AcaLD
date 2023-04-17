@@ -12,7 +12,6 @@ import fr.fms.entities.Article;
 public class ArticleDao implements Dao<Article> {
 
 	public ArticleDao(Connection connection) {
-		// TODO Auto-generated constructor stub
 	}
 
 	public ArticleDao() {
